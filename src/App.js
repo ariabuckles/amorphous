@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { AppStateContainer, AppComponent } from './set-app-state';
+import { AppStateContainer, AppComponent, RootComponent } from './set-app-state';
 
 class Input extends AppComponent {
   render() {
@@ -15,6 +15,17 @@ class Input extends AppComponent {
 }
 
 class Output extends AppComponent {
+  shouldComponentUpdate(nextProps, nextState, nextAppState) {
+    console.log('shouldComponentUpdate: prev: ',
+      this.props, this.state, this.appState
+    );
+    console.log('shouldComponentUpdate: next: ',
+      nextProps, nextState, nextAppState
+    );
+    console.log('---');
+    return nextAppState.text !== this.appState.text;
+  }
+
   render() {
     return <span>
       {'You typed: '}
@@ -23,15 +34,18 @@ class Output extends AppComponent {
   }
 }
 
-class App extends Component {
+class App extends RootComponent {
+  constructor(props) {
+    super(props);
+    this.appState = {text: 'hi'};
+  }
+
   render() {
     return (
-      <AppStateContainer appState={{text: 'hi'}}>
-        <div className="App">
-          <Input />
-          <Output />
-        </div>
-      </AppStateContainer>
+      <div className="App">
+        <Input iProp="i" />
+        <Output oProp="o" />
+      </div>
     );
   }
 }

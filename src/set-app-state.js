@@ -19,24 +19,69 @@ export class AppComponent extends React.Component {
 
   constructor(props) {
     super(props);
+    const self = this;
+    const render = this.render;
     this.appState = null;
+    this.__set_app_state = {};
 
-    this.render = wrapMethod(this.render, AppComponent.prototype.wrapRender);
+    if (this.shouldComponentUpdate) {
+      const shouldComponentUpdate = this.shouldComponentUpdate;
+      const SetAppStateComponentWrapper = function(props) {
+        React.Component.apply(this, props);
+        this.shouldComponentUpdate = function(nextProps) {
+          const props = this.props;
+          this.props = self.__set_app_state.prevProps || self.props;
+          this.state = self.__set_app_state.prevState || self.state;
+          this.appState = props.appState;
+          const result = shouldComponentUpdate.call(
+            this,
+            self.__set_app_state.nextProps || self.props,
+            self.__set_app_state.nextState || self.state,
+            nextProps.appState
+          );
+          this.props = props;
+          delete this.appState; // send back to the prototype chain
+          return result;
+        };
+        this.render = function() {
+          self.appState = this.props.appState;
+          self.setAppState = this.props.setAppState;
+          return render.apply(self, arguments);
+        };
+      };
+      SetAppStateComponentWrapper.prototype = this;
+      this.__set_app_state.ComponentWrapper = SetAppStateComponentWrapper;
+
+      this.shouldComponentUpdate = function(nextProps, nextState) {
+        this.__set_app_state.prevProps = this.props;
+        this.__set_app_state.nextProps = nextProps;
+        this.__set_app_state.prevState = this.state;
+        this.__set_app_state.nextState = nextState;
+        return true;
+      };
+    }
+
+    this.render = wrapMethod(render, AppComponent.prototype.wrapRender);
   }
 
-  wrapShouldComponentUpdate(shouldComponentUpdate, args) {
-    // TODO: how to do this?
-    return shouldComponentUpdate.apply(this, args);
-  }
+//  wrapShouldComponentUpdate(shouldComponentUpdate, args) {
+//    // TODO: how to do this?
+//    return shouldComponentUpdate.apply(this, args);
+//  }
 
   wrapRender(render, args) {
     return <SetStateContext.Consumer>
       {setAppState => (
         <StateContext.Consumer>
           {appState => {
+            if (this.__set_app_state.ComponentWrapper) {
+              return <this.__set_app_state.ComponentWrapper
+                appState={appState}
+                setAppState={setAppState}
+              />;
+            }
             this.appState = appState;
             this.setAppState = setAppState;
-            // TODO: check shouldComponentUpdate here?
             return render.apply(this, args);
           }}
         </StateContext.Consumer>
@@ -88,6 +133,19 @@ export class AppStateContainer extends React.Component {
       state => setAppStateRecursive(path, 0, state, update),
       callback
     );
+  }
+}
+
+export class RootComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.render = wrapMethod(this.render, RootComponent.prototype.wrapRender);
+  }
+
+  wrapRender(render, args) {
+    return <AppStateContainer appState={this.appState}>
+      {render.apply(this, args)}
+    </AppStateContainer>;
   }
 }
 
