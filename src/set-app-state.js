@@ -34,13 +34,15 @@ export class AppComponent extends React.Component {
       Object.assign(SetAppStateSubProto, {
         shouldComponentUpdate(nextProps) {
           const props = this.props;
-          this.props = self.__set_app_state.prevProps || self.props;
-          this.state = self.__set_app_state.prevState || self.state;
+          // eslint-disable-next-line
+          this.props = props.props || self.props;
+          // eslint-disable-next-line
+          this.state = props.state || self.state;
           this.appState = props.appState;
           const result = shouldComponentUpdate.call(
             this,
-            self.__set_app_state.nextProps || self.props,
-            self.__set_app_state.nextState || self.state,
+            nextProps.props || self.props,
+            nextProps.state || self.state,
             nextProps.appState
           );
           this.props = props;
@@ -57,11 +59,7 @@ export class AppComponent extends React.Component {
       SetAppStateComponentWrapper.prototype = SetAppStateSubProto;
       this.__set_app_state.ComponentWrapper = SetAppStateComponentWrapper;
 
-      this.shouldComponentUpdate = function(nextProps, nextState) {
-        this.__set_app_state.prevProps = this.props;
-        this.__set_app_state.nextProps = nextProps;
-        this.__set_app_state.prevState = this.state;
-        this.__set_app_state.nextState = nextState;
+      this.shouldComponentUpdate = function() {
         return true;
       };
     }
@@ -76,6 +74,8 @@ export class AppComponent extends React.Component {
           {appState => {
             if (this.__set_app_state.ComponentWrapper) {
               return <this.__set_app_state.ComponentWrapper
+                props={this.props}
+                state={this.state}
                 appState={appState}
                 setAppState={setAppState}
               />;
