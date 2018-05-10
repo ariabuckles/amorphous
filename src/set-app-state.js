@@ -20,7 +20,8 @@ export class AppComponent extends React.Component {
   constructor(props) {
     super(props);
     const self = this;
-    const render = this.render;
+    const rawRender = this.render;
+
     this.appState = null;
     this.__set_app_state = {};
 
@@ -28,7 +29,10 @@ export class AppComponent extends React.Component {
       const shouldComponentUpdate = this.shouldComponentUpdate;
       const SetAppStateComponentWrapper = function(props) {
         React.Component.apply(this, props);
-        this.shouldComponentUpdate = function(nextProps) {
+      };
+      const SetAppStateSubProto = Object.create(this);
+      Object.assign(SetAppStateSubProto, {
+        shouldComponentUpdate(nextProps) {
           const props = this.props;
           this.props = self.__set_app_state.prevProps || self.props;
           this.state = self.__set_app_state.prevState || self.state;
@@ -42,14 +46,15 @@ export class AppComponent extends React.Component {
           this.props = props;
           delete this.appState; // send back to the prototype chain
           return result;
-        };
-        this.render = function() {
+        },
+
+        render() {
           self.appState = this.props.appState;
           self.setAppState = this.props.setAppState;
-          return render.apply(self, arguments);
-        };
-      };
-      SetAppStateComponentWrapper.prototype = this;
+          return rawRender.apply(self, arguments);
+        },
+      });
+      SetAppStateComponentWrapper.prototype = SetAppStateSubProto;
       this.__set_app_state.ComponentWrapper = SetAppStateComponentWrapper;
 
       this.shouldComponentUpdate = function(nextProps, nextState) {
@@ -61,13 +66,8 @@ export class AppComponent extends React.Component {
       };
     }
 
-    this.render = wrapMethod(render, AppComponent.prototype.wrapRender);
+    this.render = wrapMethod(rawRender, AppComponent.prototype.wrapRender);
   }
-
-//  wrapShouldComponentUpdate(shouldComponentUpdate, args) {
-//    // TODO: how to do this?
-//    return shouldComponentUpdate.apply(this, args);
-//  }
 
   wrapRender(render, args) {
     return <SetStateContext.Consumer>
