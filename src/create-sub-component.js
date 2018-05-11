@@ -1,18 +1,18 @@
 import * as React from 'react';
 
+const stubMethods = {
+  shouldComponentUpdate() { return true; },
+  render() { throw new Error("render should be replaced with a wrapped render"); },
+  componentDidMount() { },
+  getSnapshotBeforeUpdate() { return null; },
+  componentDidUpdate() { },
+};
+
 const createSubComponent = (self) => {
-  const shouldComponentUpdate = self.shouldComponentUpdate;
-  const render = self.render;
-  const componentDidMount = self.componentDidMount;
-  const getSnapshotBeforeUpdate = self.getSnapshotBeforeUpdate;
-  const componentDidUpdate = self.componentDidUpdate;
+  let original = {};
 
-  const SetAppStateComponentWrapper = function(props) {
-    React.Component.apply(this, props);
-  };
-  const SetAppStateSubProto = Object.create(self);
-
-  Object.assign(SetAppStateSubProto, {
+  // AppComponentProxy method definitions
+  const proxyMethods = {
     shouldComponentUpdate(nextProps) {
       const props = self.props;
       const state = self.state;
@@ -22,39 +22,37 @@ const createSubComponent = (self) => {
         self.props = this.props.props;
         self.state = this.props.state;
         self.appState = this.props.appState;
-        return shouldComponentUpdate ? shouldComponentUpdate.call(
+        return original.shouldComponentUpdate.call(
           self,
           nextProps.props,
           nextProps.state,
           nextProps.appState
-        ) : true;
+        );
       } finally {
         self.props = props;
-        self.state = props;
+        self.state = state;
         self.appState = appState;
       }
     },
 
     render() {
       self.appState = this.props.appState;
-      return render.apply(self, arguments);
+      self.setAppState = this.props.setAppState;
+      return original.render.apply(self, arguments);
     },
 
     componentDidMount() {
-      self.setAppState = this.props.setAppState;
-      return componentDidMount && componentDidMount.apply(self, arguments);
+      return original.componentDidMount.apply(self, arguments);
     },
 
     getSnapshotBeforeUpdate() {
       self.appState = this.props.appState;
       self.setAppState = this.props.setAppState;
-      return getSnapshotBeforeUpdate ?
-        getSnapshotBeforeUpdate.apply(self, arguments)
-      : null;
+      return original.getSnapshotBeforeUpdate.apply(self, arguments);
     },
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-      return componentDidUpdate && componentDidUpdate.call(
+      return original.componentDidUpdate.call(
         self,
         prevProps.props,
         prevProps.state,
@@ -62,12 +60,27 @@ const createSubComponent = (self) => {
         prevProps.appState
       );
     },
+  };
 
-  });
+  // AppComponentProxy class
+  const AppComponentProxy = function(props) {
+    React.Component.apply(this, props);
+  };
+  AppComponentProxy.prototype = Object.create(React.Component.prototype);
 
-  SetAppStateComponentWrapper.prototype = SetAppStateSubProto;
+  // Move methods from `self` to AppComponentProxy (and create `original` obj)
+  for (const method in proxyMethods) {
+    if (self[method]) {
+      // Create `original` object
+      original[method] = self[method];
+      // Proxy method calls on proxy component to the instance (self) component
+      AppComponentProxy.prototype[method] = proxyMethods[method];
+      // Take proxied methods off `self` (as far as react sees)
+      self[method] = stubMethods[method];
+    }
+  }
 
-  return SetAppStateComponentWrapper;
+  return AppComponentProxy;
 };
 
 export default createSubComponent;

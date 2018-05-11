@@ -24,8 +24,6 @@ export class AppComponent extends React.Component {
 
     this.__AppComponentProxy = createSubComponent(this);
 
-    this.shouldComponentUpdate = function() { return true; };
-
     this.render = wrapMethod(rawRender, AppComponent.prototype.wrapRender);
   }
 
