@@ -1,6 +1,6 @@
-- [ ] call all methods on self
-- [ ] try/finally
+- [x] call all methods on self
+- [x] try/finally
 - [ ] full react api support
 - [ ] getDerivedAppState
 - [ ] combine appState and setAppState contexts
-- [ ] turn subcomponent back into a class?
+- [x] X turn subcomponent back into a class?

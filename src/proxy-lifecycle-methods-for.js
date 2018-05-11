@@ -8,7 +8,7 @@ const stubMethods = {
   componentDidUpdate() { },
 };
 
-const createSubComponent = (self) => {
+const proxyLifecycleMethodsFor = (self) => {
   let original = {};
 
   // AppComponentProxy method definitions
@@ -83,4 +83,4 @@ const createSubComponent = (self) => {
   return AppComponentProxy;
 };
 
-export default createSubComponent;
+export default proxyLifecycleMethodsFor;

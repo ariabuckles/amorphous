@@ -1,5 +1,5 @@
 import * as React from 'react';
-import createSubComponent from './create-sub-component';
+import proxyLifecycleMethodsFor from './proxy-lifecycle-methods-for';
 
 // TODO: Make these better defaults so you don't need a parent provider? 😬
 // Or at least present an error message
@@ -22,8 +22,7 @@ export class AppComponent extends React.Component {
     super(props);
     const rawRender = this.render;
 
-    this.__AppComponentProxy = createSubComponent(this);
-
+    this.__AppComponentProxy = proxyLifecycleMethodsFor(this);
     this.render = wrapMethod(rawRender, AppComponent.prototype.wrapRender);
   }
 
