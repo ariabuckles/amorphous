@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { AppStateContainer, AppComponent, RootComponent } from './set-app-state';
+import { AppStateContainer, AppComponent, RootComponent } from './amorphous';
 
 class Input extends AppComponent {
   render() {
