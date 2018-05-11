@@ -22,10 +22,7 @@ export class AppComponent extends React.Component {
     super(props);
     const rawRender = this.render;
 
-    this.appState = null;
-    this.__set_app_state = {};
-
-    this.__set_app_state.ComponentWrapper = createSubComponent(this);
+    this.__AppComponentProxy = createSubComponent(this);
 
     this.shouldComponentUpdate = function() { return true; };
 
@@ -37,7 +34,7 @@ export class AppComponent extends React.Component {
       {setAppState => (
         <StateContext.Consumer>
           {appState => (
-            <this.__set_app_state.ComponentWrapper
+            <this.__AppComponentProxy
               props={this.props}
               state={this.state}
               appState={appState}

@@ -9,38 +9,38 @@ const createSubComponent = (self) => {
 
   const SetAppStateComponentWrapper = function(props) {
     React.Component.apply(this, props);
-    this.state = null;
   };
   const SetAppStateSubProto = Object.create(self);
 
   Object.assign(SetAppStateSubProto, {
     shouldComponentUpdate(nextProps) {
-      const props = this.props;
-      this.props = props.props;
-      this.state = props.state;
-      this.appState = props.appState;
+      const props = self.props;
+      const state = self.state;
+      const appState = self.appState;
 
-      const result = shouldComponentUpdate ? shouldComponentUpdate.call(
-        this,
-        nextProps.props,
-        nextProps.state,
-        nextProps.appState
-      ) : true;
-
-      this.props = props;
-      this.state = null;
-      delete this.appState; // send back to the prototype chain
-      return result;
+      try {
+        self.props = this.props.props;
+        self.state = this.props.state;
+        self.appState = this.props.appState;
+        return shouldComponentUpdate ? shouldComponentUpdate.call(
+          self,
+          nextProps.props,
+          nextProps.state,
+          nextProps.appState
+        ) : true;
+      } finally {
+        self.props = props;
+        self.state = props;
+        self.appState = appState;
+      }
     },
 
     render() {
       self.appState = this.props.appState;
-      self.setAppState = this.props.setAppState;
       return render.apply(self, arguments);
     },
 
     componentDidMount() {
-      self.appState = this.props.appState;
       self.setAppState = this.props.setAppState;
       return componentDidMount && componentDidMount.apply(self, arguments);
     },
@@ -54,14 +54,13 @@ const createSubComponent = (self) => {
     },
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-      const result = componentDidUpdate && componentDidUpdate.call(
+      return componentDidUpdate && componentDidUpdate.call(
         self,
         prevProps.props,
         prevProps.state,
         snapshot,
         prevProps.appState
       );
-      return result;
     },
 
   });
