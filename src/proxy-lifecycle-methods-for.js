@@ -8,7 +8,7 @@ const getDisplayName = (WrappedComponent) => {
 const stubMethods = {
   shouldComponentUpdate() { return true; },
   render() { throw new Error("render should be replaced with a wrapped render"); },
-  componentDidMount() { },
+  // componentDidMount requires no proxying
   getSnapshotBeforeUpdate() { return null; },
   componentDidUpdate() { },
   // componentWillUnmount requires no proxying
@@ -48,16 +48,9 @@ const proxyLifecycleMethodsFor = (self) => {
       return original.render.apply(self, arguments);
     },
 
-    // TODO: do we need this? or is letting the wrapper mount enough?
-    componentDidMount() {
-      return original.componentDidMount.apply(self, arguments);
-    },
-
-    // We need this to be on the proxy, so we have it here
+    // We need this to be on the proxy, so that it is triggered immediately
+    // before componentDidUpdate, so we have it here
     getSnapshotBeforeUpdate() {
-      // Do we need to update appState/setAppState here? I think we don't...
-      self.appState = this.props.appState;
-      self.setAppState = this.props.setAppState;
       return original.getSnapshotBeforeUpdate.apply(self, arguments);
     },
 
