@@ -32,6 +32,15 @@ class Output extends AppComponent {
       {this.appState.text}
     </span>;
   }
+
+  componentDidUpdate(prevProps, prevState, snapshot, prevAppState) {
+    console.log('componentDidUpdate: prev: ',
+      prevProps, prevState, prevAppState
+    );
+    console.log('componentDidUpdate: next: ',
+      this.props, this.state, this.appState
+    );
+  }
 }
 
 class App extends RootComponent {

@@ -1,0 +1,4 @@
+- [ ] call all methods on self
+- [ ] try/finally
+- [ ] full react api support
+- [ ] getDerivedAppState

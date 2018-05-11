@@ -1,4 +1,5 @@
 import * as React from 'react';
+import createSubComponent from './create-sub-component';
 
 // TODO: Make these better defaults so you don't need a parent provider? 😬
 // Or at least present an error message
@@ -19,49 +20,15 @@ export class AppComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    const self = this;
     const rawRender = this.render;
 
     this.appState = null;
     this.__set_app_state = {};
 
     if (this.shouldComponentUpdate) {
-      const shouldComponentUpdate = this.shouldComponentUpdate;
-      const SetAppStateComponentWrapper = function(props) {
-        React.Component.apply(this, props);
-      };
-      const SetAppStateSubProto = Object.create(this);
-      Object.assign(SetAppStateSubProto, {
-        shouldComponentUpdate(nextProps) {
-          const props = this.props;
-          // eslint-disable-next-line
-          this.props = props.props || self.props;
-          // eslint-disable-next-line
-          this.state = props.state || self.state;
-          this.appState = props.appState;
-          const result = shouldComponentUpdate.call(
-            this,
-            nextProps.props || self.props,
-            nextProps.state || self.state,
-            nextProps.appState
-          );
-          this.props = props;
-          delete this.appState; // send back to the prototype chain
-          return result;
-        },
+      this.__set_app_state.ComponentWrapper = createSubComponent(this);
 
-        render() {
-          self.appState = this.props.appState;
-          self.setAppState = this.props.setAppState;
-          return rawRender.apply(self, arguments);
-        },
-      });
-      SetAppStateComponentWrapper.prototype = SetAppStateSubProto;
-      this.__set_app_state.ComponentWrapper = SetAppStateComponentWrapper;
-
-      this.shouldComponentUpdate = function() {
-        return true;
-      };
+      this.shouldComponentUpdate = function() { return true; };
     }
 
     this.render = wrapMethod(rawRender, AppComponent.prototype.wrapRender);
@@ -71,19 +38,14 @@ export class AppComponent extends React.Component {
     return <SetStateContext.Consumer>
       {setAppState => (
         <StateContext.Consumer>
-          {appState => {
-            if (this.__set_app_state.ComponentWrapper) {
-              return <this.__set_app_state.ComponentWrapper
-                props={this.props}
-                state={this.state}
-                appState={appState}
-                setAppState={setAppState}
-              />;
-            }
-            this.appState = appState;
-            this.setAppState = setAppState;
-            return render.apply(this, args);
-          }}
+          {appState => (
+            <this.__set_app_state.ComponentWrapper
+              props={this.props}
+              state={this.state}
+              appState={appState}
+              setAppState={setAppState}
+            />;
+          )}
         </StateContext.Consumer>
       )}
     </SetStateContext.Consumer>;
