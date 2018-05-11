@@ -1,20 +1,28 @@
 {
   "name": "amorphous",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Aria Buckles",
   "license": "MIT",
-  "main": "src/amorphous.js",
+  "main": "lib/amorphous.js",
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react-app": "^3.1.1",
     "react-scripts": "1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
+    "build": "NODE_ENV=production babel src -d lib",
+    "prepublishOnly": "npm run build",
     "build-demo": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "babel": {
+    "presets": ["env", "react-app"]
   }
 }
