@@ -8,3 +8,4 @@
 - [x] make index.js reflect babel compiled code
 - [x] fix proxy component name for better debugging
 - [x] provide appState to RootComponent?? (and rename to RootAppComponent??)
+- [ ] replace wrapMethod for render with just assignment

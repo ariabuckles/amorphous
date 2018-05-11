@@ -17,23 +17,6 @@ const getNewAppStateRecursive = (path, i, subState, update) => {
 };
 
 
-const setNewAppState = (setState, context, args) => {
-  let path = [];
-  let i = 0;
-  while (i < args.length && (typeof args[i] === 'string')) {
-    path.push(args[i]);
-    i++;
-  }
-  const update = args[i];
-  const callback = args[i + 1];
-  setState.call(
-    context,
-    state => getNewAppStateRecursive(path, 0, state, update),
-    callback
-  );
-};
-
-
 const AppStateContext = React.createContext({
   appState: {},
   setAppState: () => {
@@ -60,6 +43,13 @@ export class AppStateContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.appState || {};
+    if (props.getDerivedAppState) {
+      this.state = Object.assign(
+        {},
+        this.state,
+        props.getDerivedAppState(this.state)
+      );
+    }
     this.setAppState = this.setAppState.bind(this);
   }
 
@@ -72,7 +62,25 @@ export class AppStateContainer extends React.Component {
   }
 
   setAppState(...args) {
-    setNewAppState(this.setState, this, args);
+    let path = [];
+    let i = 0;
+    while (i < args.length && (typeof args[i] === 'string')) {
+      path.push(args[i]);
+      i++;
+    }
+    const update = args[i];
+    const callback = args[i + 1];
+    this.setState(
+      state => {
+        let newState = getNewAppStateRecursive(path, 0, state, update);
+        if (this.props.getDerivedAppState) {
+          // Mutating is okay because newState is ensured to be a new object
+          Object.assign(newState, this.props.getDerivedAppState(newState));
+        }
+        return newState;
+      },
+      callback
+    );
   }
 }
 
@@ -118,7 +126,10 @@ export class RootAppComponent extends React.Component {
 
   // Todo just replace render entirely
   wrapRender(render, args) {
-    return <AppStateContainer appState={this.appState}>
+    return <AppStateContainer
+      appState={this.appState}
+      getDerivedAppState={this.constructor.getDerivedAppState}
+    >
       <AppStateContext.Consumer>
         {({appState, setAppState}) => (
           <this.__AppComponentProxy

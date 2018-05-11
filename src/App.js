@@ -49,11 +49,18 @@ class App extends RootAppComponent {
     this.appState = {text: 'hi'};
   }
 
+  static getDerivedAppState = (appState) => {
+    return {
+      length: appState.text.length,
+    };
+  }
+
   render() {
     return (
       <div className="App">
         <Input iProp="i" />
         <Output oProp="o" />
+        <span> : {this.appState.length}</span>
       </div>
     );
   }
