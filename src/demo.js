@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
 
-import { AppStateContainer, AppComponent, RootAppComponent } from './amorphous';
+import { AppComponent, RootAppComponent } from './amorphous';
 
 class Input extends AppComponent {
   render() {
