@@ -2,3 +2,5 @@
 - [ ] try/finally
 - [ ] full react api support
 - [ ] getDerivedAppState
+- [ ] combine appState and setAppState contexts
+- [ ] turn subcomponent back into a class?

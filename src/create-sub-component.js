@@ -9,6 +9,7 @@ const createSubComponent = (self) => {
 
   const SetAppStateComponentWrapper = function(props) {
     React.Component.apply(this, props);
+    this.state = null;
   };
   const SetAppStateSubProto = Object.create(self);
 
@@ -19,20 +20,12 @@ const createSubComponent = (self) => {
       this.state = props.state;
       this.appState = props.appState;
 
-      const props = self.props;
-      const state = self.state;
-      const appState = self.appState;
-
-      self.props = this.props.props;
-      self.state = this.props.state;
-      //self.appState = this.props.appState; //TODO unnecessary due to updated?
-
-      const result = shouldComponentUpdate.call(
+      const result = shouldComponentUpdate ? shouldComponentUpdate.call(
         this,
         nextProps.props,
         nextProps.state,
         nextProps.appState
-      );
+      ) : true;
 
       this.props = props;
       this.state = null;
@@ -49,34 +42,25 @@ const createSubComponent = (self) => {
     componentDidMount() {
       self.appState = this.props.appState;
       self.setAppState = this.props.setAppState;
-      return componentDidMount.apply(self, arguments);
+      return componentDidMount && componentDidMount.apply(self, arguments);
     },
 
     getSnapshotBeforeUpdate() {
       self.appState = this.props.appState;
       self.setAppState = this.props.setAppState;
-      return getSnapshotBeforeUpdate.apply(self, arguments);
+      return getSnapshotBeforeUpdate ?
+        getSnapshotBeforeUpdate.apply(self, arguments)
+      : null;
     },
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-      const props = self.props;
-      const state = self.state;
-
-      self.props = this.props.props;
-      self.state = this.props.state;
-      //self.appState = this.props.appState; //TODO unnecessary due to updated?
-
-      const result = componentDidUpdate.call(
+      const result = componentDidUpdate && componentDidUpdate.call(
         self,
         prevProps.props,
         prevProps.state,
         snapshot,
         prevProps.appState
       );
-
-      self.props = props;
-      self.state = state;
-      // self.appState = appState; //TODO similarly not necessary i think
       return result;
     },
 

@@ -25,11 +25,9 @@ export class AppComponent extends React.Component {
     this.appState = null;
     this.__set_app_state = {};
 
-    if (this.shouldComponentUpdate) {
-      this.__set_app_state.ComponentWrapper = createSubComponent(this);
+    this.__set_app_state.ComponentWrapper = createSubComponent(this);
 
-      this.shouldComponentUpdate = function() { return true; };
-    }
+    this.shouldComponentUpdate = function() { return true; };
 
     this.render = wrapMethod(rawRender, AppComponent.prototype.wrapRender);
   }
@@ -44,7 +42,7 @@ export class AppComponent extends React.Component {
               state={this.state}
               appState={appState}
               setAppState={setAppState}
-            />;
+            />
           )}
         </StateContext.Consumer>
       )}
