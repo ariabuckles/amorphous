@@ -1,6 +1,7 @@
 import * as React from 'react';
 import proxyLifecycleMethodsFor from './proxy-lifecycle-methods-for';
 
+
 const getNewAppStateRecursive = (path, i, subState, update) => {
   if (i === path.length) {
     return Object.assign({}, subState,
@@ -14,6 +15,7 @@ const getNewAppStateRecursive = (path, i, subState, update) => {
     update
   ));
 };
+
 
 const setNewAppState = (setState, context, args) => {
   let path = [];
@@ -31,15 +33,17 @@ const setNewAppState = (setState, context, args) => {
   );
 };
 
+
 const AppStateContext = React.createContext({
   appState: {},
   setAppState: () => {
     throw new Error(
-      'Amorphous: to use appState, You must provide a RootComponent at the ' +
+      'Amorphous: to use appState, You must provide a RootAppComponent at the ' +
       'root of your app/library component tree'
     )
   },
 });
+
 
 const wrapMethod = (lifeCycleMethod, methodWrapper) => {
   if (typeof lifeCycleMethod !== 'function') {
@@ -50,31 +54,6 @@ const wrapMethod = (lifeCycleMethod, methodWrapper) => {
     return methodWrapper.call(this, lifeCycleMethod, args);
   }
 };
-
-export class AppComponent extends React.Component {
-
-  constructor(props) {
-    super(props);
-    const rawRender = this.render;
-
-    this.__AppComponentProxy = proxyLifecycleMethodsFor(this);
-    this.render = wrapMethod(rawRender, AppComponent.prototype.wrapRender);
-  }
-
-  wrapRender(render, args) {
-    return <AppStateContext.Consumer>
-      {({appState, setAppState}) => (
-        <this.__AppComponentProxy
-          props={this.props}
-          state={this.state}
-          appState={appState}
-          setAppState={setAppState}
-        />
-      )}
-    </AppStateContext.Consumer>;
-  }
-}
-
 
 
 export class AppStateContainer extends React.Component {
@@ -97,15 +76,59 @@ export class AppStateContainer extends React.Component {
   }
 }
 
-export class RootComponent extends React.Component {
+export class AppComponent extends React.Component {
+
   constructor(props) {
     super(props);
-    this.render = wrapMethod(this.render, RootComponent.prototype.wrapRender);
+    const rawRender = this.render;
+
+    this.__AppComponentProxy = proxyLifecycleMethodsFor(this);
+    // This *must* be rawrender, as proxyLifecycleMethodsFor modifies `this`:
+    this.render = wrapMethod(rawRender, AppComponent.prototype.wrapRender);
   }
 
+  // Todo just replace render entirely
+  wrapRender(render, args) {
+    return <AppStateContext.Consumer>
+      {({appState, setAppState}) => (
+        <this.__AppComponentProxy
+          props={this.props}
+          state={this.state}
+          appState={appState}
+          setAppState={setAppState}
+        />
+      )}
+    </AppStateContext.Consumer>;
+  }
+}
+
+
+export class RootAppComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    const rawRender = this.render;
+
+    this.__AppComponentProxy = proxyLifecycleMethodsFor(this);
+    // This *must* be rawrender, as proxyLifecycleMethodsFor modifies `this`:
+    this.render = wrapMethod(rawRender, RootAppComponent.prototype.wrapRender);
+
+    // This should usually be overwritten with a default value by derived class
+    this.appState = {};
+  }
+
+  // Todo just replace render entirely
   wrapRender(render, args) {
     return <AppStateContainer appState={this.appState}>
-      {render.apply(this, args)}
+      <AppStateContext.Consumer>
+        {({appState, setAppState}) => (
+          <this.__AppComponentProxy
+            props={this.props}
+            state={this.state}
+            appState={appState}
+            setAppState={setAppState}
+          />
+        )}
+      </AppStateContext.Consumer>
     </AppStateContainer>;
   }
 }

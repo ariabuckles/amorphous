@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { AppStateContainer, AppComponent, RootComponent } from './amorphous';
+import { AppStateContainer, AppComponent, RootAppComponent } from './amorphous';
 
 class Input extends AppComponent {
   render() {
@@ -43,7 +43,7 @@ class Output extends AppComponent {
   }
 }
 
-class App extends RootComponent {
+class App extends RootAppComponent {
   constructor(props) {
     super(props);
     this.appState = {text: 'hi'};
@@ -55,6 +55,15 @@ class App extends RootComponent {
         <Input iProp="i" />
         <Output oProp="o" />
       </div>
+    );
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot, prevAppState) {
+    console.log('ROOT componentDidUpdate: prev: ',
+      prevProps, prevState, prevAppState
+    );
+    console.log('ROOT componentDidUpdate: next: ',
+      this.props, this.state, this.appState
     );
   }
 }

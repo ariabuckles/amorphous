@@ -74,7 +74,7 @@ const proxyLifecycleMethodsFor = (self) => {
     React.Component.apply(this, props);
   };
   AppComponentProxy.prototype = Object.create(React.Component.prototype);
-  AppComponentProxy.displayName = `AppComponentProxy(${getDisplayName(WrappedComponent)})`;
+  AppComponentProxy.displayName = `AppComponentProxy(${getDisplayName(self.constructor)})`;
 
   // Move methods from `self` to AppComponentProxy (and create `original` obj)
   for (const method in proxyMethods) {

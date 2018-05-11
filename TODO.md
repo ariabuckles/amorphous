@@ -7,4 +7,4 @@
 - [x] babel compile process for use via npm
 - [x] make index.js reflect babel compiled code
 - [x] fix proxy component name for better debugging
-- [ ] provide appState to RootComponent?? (and rename to RootAppComponent??)
+- [x] provide appState to RootComponent?? (and rename to RootAppComponent??)
