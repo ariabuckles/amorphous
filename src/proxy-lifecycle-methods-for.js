@@ -1,11 +1,18 @@
 import * as React from 'react';
 
+// From https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging
+const getDisplayName = (WrappedComponent) => {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+};
+
 const stubMethods = {
   shouldComponentUpdate() { return true; },
   render() { throw new Error("render should be replaced with a wrapped render"); },
   componentDidMount() { },
   getSnapshotBeforeUpdate() { return null; },
   componentDidUpdate() { },
+  // componentWillUnmount requires no proxying
+  // componentDidCatch requires no proxying
 };
 
 const proxyLifecycleMethodsFor = (self) => {
@@ -67,6 +74,7 @@ const proxyLifecycleMethodsFor = (self) => {
     React.Component.apply(this, props);
   };
   AppComponentProxy.prototype = Object.create(React.Component.prototype);
+  AppComponentProxy.displayName = `AppComponentProxy(${getDisplayName(WrappedComponent)})`;
 
   // Move methods from `self` to AppComponentProxy (and create `original` obj)
   for (const method in proxyMethods) {

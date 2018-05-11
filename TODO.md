@@ -1,8 +1,10 @@
 - [x] call all methods on self
 - [x] try/finally
-- [ ] full react api support
+- [x] full react api support
 - [ ] getDerivedAppState
 - [x] combine appState and setAppState contexts
 - [x] X turn subcomponent back into a class?
-- [ ] babel compile process for use via npm
-- [ ] make index.js reflect babel compiled code
+- [x] babel compile process for use via npm
+- [x] make index.js reflect babel compiled code
+- [x] fix proxy component name for better debugging
+- [ ] provide appState to RootComponent?? (and rename to RootAppComponent??)
