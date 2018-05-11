@@ -1,10 +1,50 @@
 import * as React from 'react';
 import proxyLifecycleMethodsFor from './proxy-lifecycle-methods-for';
 
+const getNewAppStateRecursive = (path, i, subState, update) => {
+  if (i === path.length) {
+    return Object.assign({}, subState,
+      (typeof update === 'function') ? update(subState) : update
+    );
+  }
+  return Object.assign({}, getNewAppStateRecursive(
+    path,
+    i + 1,
+    subState[path[i]],
+    update
+  ));
+};
+
+const setNewAppState = (setState, context, args) => {
+  let path = [];
+  let i = 0;
+  while (i < args.length && (typeof args[i] === 'string')) {
+    path.push(args[i]);
+    i++;
+  }
+  const update = args[i];
+  const callback = args[i + 1];
+  setState.call(
+    context,
+    state => getNewAppStateRecursive(path, 0, state, update),
+    callback
+  );
+};
+
 // TODO: Make these better defaults so you don't need a parent provider? 😬
 // Or at least present an error message
-const StateContext = React.createContext({});
-const SetStateContext = React.createContext(() => null);
+const defaultAppState = {};
+const defaultSetState = (newState, callback) => {
+  Object.assign(newState, defaultAppState);
+  callback && callback();
+};
+const defaultSetAppState = (...args) => {
+  setNewAppState(defaultSetState, undefined, args);
+};
+const AppStateContext = React.createContext({
+  state: defaultAppState,
+  setAppState: defaultSetAppState,
+});
 
 const wrapMethod = (lifeCycleMethod, methodWrapper) => {
   if (typeof lifeCycleMethod !== 'function') {
@@ -27,37 +67,20 @@ export class AppComponent extends React.Component {
   }
 
   wrapRender(render, args) {
-    return <SetStateContext.Consumer>
-      {setAppState => (
-        <StateContext.Consumer>
-          {appState => (
-            <this.__AppComponentProxy
-              props={this.props}
-              state={this.state}
-              appState={appState}
-              setAppState={setAppState}
-            />
-          )}
-        </StateContext.Consumer>
+    return <AppStateContext.Consumer>
+      {({appState, setAppState}) => (
+        <this.__AppComponentProxy
+          props={this.props}
+          state={this.state}
+          appState={appState}
+          setAppState={setAppState}
+        />
       )}
-    </SetStateContext.Consumer>;
+    </AppStateContext.Consumer>;
   }
 }
 
 
-const setAppStateRecursive = (path, i, subState, update) => {
-  if (i === path.length) {
-    return Object.assign({}, subState,
-      (typeof update === 'function') ? update(subState) : update
-    );
-  }
-  return Object.assign({}, setAppStateRecursive(
-    path,
-    i + 1,
-    subState[path[i]],
-    update
-  ));
-};
 
 export class AppStateContainer extends React.Component {
   constructor(props) {
@@ -67,26 +90,15 @@ export class AppStateContainer extends React.Component {
   }
 
   render() {
-    return <SetStateContext.Provider value={this.setAppState}>
-      <StateContext.Provider value={this.state}>
-        {this.props.children}
-      </StateContext.Provider>
-    </SetStateContext.Provider>
+    return <AppStateContext.Provider
+      value={{appState: this.state, setAppState: this.setAppState}}
+    >
+      {this.props.children}
+    </AppStateContext.Provider>
   }
 
   setAppState(...args) {
-    let path = [];
-    let i = 0;
-    while (i < args.length && (typeof args[i] === 'string')) {
-      path.push(args[i]);
-      i++;
-    }
-    const update = args[i];
-    const callback = args[i + 1];
-    this.setState(
-      state => setAppStateRecursive(path, 0, state, update),
-      callback
-    );
+    setNewAppState(this.setState, this, args);
   }
 }
 
