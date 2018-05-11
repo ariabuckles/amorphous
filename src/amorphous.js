@@ -28,17 +28,6 @@ const AppStateContext = React.createContext({
 });
 
 
-const wrapMethod = (lifeCycleMethod, methodWrapper) => {
-  if (typeof lifeCycleMethod !== 'function') {
-    return lifeCycleMethod;
-  }
-
-  return function(...args) {
-    return methodWrapper.call(this, lifeCycleMethod, args);
-  }
-};
-
-
 export class AppStateContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -88,15 +77,12 @@ export class AppComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    const rawRender = this.render;
 
     this.__AppComponentProxy = proxyLifecycleMethodsFor(this);
-    // This *must* be rawrender, as proxyLifecycleMethodsFor modifies `this`:
-    this.render = wrapMethod(rawRender, AppComponent.prototype.wrapRender);
+    this.render = AppComponent.prototype.render;
   }
 
-  // Todo just replace render entirely
-  wrapRender(render, args) {
+  render(render, args) {
     return <AppStateContext.Consumer>
       {({appState, setAppState}) => (
         <this.__AppComponentProxy
@@ -114,18 +100,15 @@ export class AppComponent extends React.Component {
 export class RootAppComponent extends React.Component {
   constructor(props) {
     super(props);
-    const rawRender = this.render;
 
     this.__AppComponentProxy = proxyLifecycleMethodsFor(this);
-    // This *must* be rawrender, as proxyLifecycleMethodsFor modifies `this`:
-    this.render = wrapMethod(rawRender, RootAppComponent.prototype.wrapRender);
+    this.render = RootAppComponent.prototype.render;
 
     // This should usually be overwritten with a default value by derived class
     this.appState = {};
   }
 
-  // Todo just replace render entirely
-  wrapRender(render, args) {
+  render(render, args) {
     return <AppStateContainer
       appState={this.appState}
       getDerivedAppState={this.constructor.getDerivedAppState}
