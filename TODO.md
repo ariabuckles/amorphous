@@ -2,5 +2,7 @@
 - [x] try/finally
 - [ ] full react api support
 - [ ] getDerivedAppState
-- [ ] combine appState and setAppState contexts
+- [x] combine appState and setAppState contexts
 - [x] X turn subcomponent back into a class?
+- [ ] babel compile process for use via npm
+- [ ] make index.js reflect babel compiled code

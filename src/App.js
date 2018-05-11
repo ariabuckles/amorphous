@@ -43,10 +43,10 @@ class Output extends AppComponent {
   }
 }
 
-class App extends Component {
+class App extends RootComponent {
   constructor(props) {
     super(props);
-    //this.appState = {text: 'hi'};
+    this.appState = {text: 'hi'};
   }
 
   render() {

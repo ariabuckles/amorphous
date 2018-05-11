@@ -31,30 +31,14 @@ const setNewAppState = (setState, context, args) => {
   );
 };
 
-// TODO: Make these better defaults so you don't need a parent provider? 😬
-// Or at least present an error message
-const defaultAppState = {
-  __listeners: [],
-};
-const defaultSetState = (newState, callback) => {
-  setTimeout(() => {
-    if (typeof newState === 'function') {
-      Object.assign(defaultAppState, newState(defaultAppState));
-    } else {
-      Object.assign(defaultAppState, newState);
-    }
-    for (let listener of defaultAppState.__listeners) {
-      listener();
-    }
-    callback && callback();
-  }, 0);
-};
-const defaultSetAppState = (...args) => {
-  setNewAppState(defaultSetState, undefined, args);
-};
 const AppStateContext = React.createContext({
-  appState: defaultAppState,
-  setAppState: defaultSetAppState,
+  appState: {},
+  setAppState: () => {
+    throw new Error(
+      'Amorphous: to use appState, You must provide a RootComponent at the ' +
+      'root of your app/library component tree'
+    )
+  },
 });
 
 const wrapMethod = (lifeCycleMethod, methodWrapper) => {
@@ -75,40 +59,19 @@ export class AppComponent extends React.Component {
 
     this.__AppComponentProxy = proxyLifecycleMethodsFor(this);
     this.render = wrapMethod(rawRender, AppComponent.prototype.wrapRender);
-    this.componentWillUnmount = wrapMethod(
-      this.componentWillUnmount,
-      AppComponent.prototype.wrapComponentWillUnmount
-    );
   }
 
   wrapRender(render, args) {
     return <AppStateContext.Consumer>
-      {({appState, setAppState}) => {
-        if (appState === defaultAppState && !this.__unregisterAppStateListener) {
-          const listener = () => this.forceUpdate();
-          defaultAppState.__listeners.push(listener);
-          this.__unregisterAppStateListener = () => {
-            const i = appState.__listeners.indexOf(listener);
-            if (i >= 0) {
-              appState.__listeners.splice(i, 1);
-            }
-          };
-        }
-        return <this.__AppComponentProxy
+      {({appState, setAppState}) => (
+        <this.__AppComponentProxy
           props={this.props}
           state={this.state}
           appState={appState}
           setAppState={setAppState}
         />
-      }}
+      )}
     </AppStateContext.Consumer>;
-  }
-
-  wrapComponentWillUnmount(componentWillUnmount) {
-    if (this.__unregisterAppStateListener) {
-      this.__unregisterAppStateListener();
-    }
-    return componentWillUnmount.apply(this, arguments);
   }
 }
 

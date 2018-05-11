@@ -1,15 +1,18 @@
 {
-  "name": "set-app-state-1",
-  "version": "0.1.0",
-  "private": true,
+  "name": "amorphous",
+  "version": "0.0.1",
+  "author": "Aria Buckles",
+  "license": "MIT",
   "dependencies": {
     "react": "^16.3.2",
-    "react-dom": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "devDependencies": {
     "react-scripts": "1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build-demo": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
