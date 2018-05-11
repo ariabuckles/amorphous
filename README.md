@@ -26,7 +26,7 @@ npm install amorphous
 Then, you can import `AppComponent` and `RootAppComponent`:
 
 ```javascript
-import { AppComponent, RootAppComponent } from './amorphous';
+import { AppComponent, RootAppComponent } from 'amorphous';
 ```
 
 At the root of your application (or subtree), extend
