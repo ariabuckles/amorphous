@@ -29,7 +29,8 @@
     "build": "NODE_ENV=production babel src -d lib",
     "prepublishOnly": "npm run build",
     "build-demo": "react-scripts build",
-    "test": "NODE_ENV=test mocha -r babel-register src/*.test.js",
+    "test": "NODE_ENV=test mocha -r babel-register src/__tests__/*.js",
+    "watch-tests": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "babel": {

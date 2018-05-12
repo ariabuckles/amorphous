@@ -1,9 +1,9 @@
 import { strict as assert } from 'assert';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { RootAppComponent } from './amorphous';
+import { RootAppComponent } from '../amorphous';
 
-describe('RootAppComponent', () => {
+describe('Single RootAppComponent', () => {
   describe('appState access', () => {
     class AccessRoot extends RootAppComponent {
       render() {
