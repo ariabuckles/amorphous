@@ -6,11 +6,17 @@ const getDisplayName = (WrappedComponent) => {
 };
 
 const stubMethods = {
-  shouldComponentUpdate() { return true; },
-  render() { throw new Error("render should be replaced with a wrapped render"); },
+  shouldComponentUpdate() {
+    return true;
+  },
+  render() {
+    throw new Error('render should be replaced with a wrapped render');
+  },
   // componentDidMount requires no proxying
-  getSnapshotBeforeUpdate() { return null; },
-  componentDidUpdate() { },
+  getSnapshotBeforeUpdate() {
+    return null;
+  },
+  componentDidUpdate() {},
   // componentWillUnmount requires no proxying
   // componentDidCatch requires no proxying
 };
@@ -70,7 +76,9 @@ const proxyLifecycleMethodsFor = (self) => {
     React.Component.apply(this, props);
   };
   AppComponentProxy.prototype = Object.create(React.Component.prototype);
-  AppComponentProxy.displayName = `AppComponentProxy(${getDisplayName(self.constructor)})`;
+  AppComponentProxy.displayName = `AppComponentProxy(${getDisplayName(
+    self.constructor
+  )})`;
 
   // Move methods from `self` to AppComponentProxy (and create `original` obj)
   for (const method in proxyMethods) {
