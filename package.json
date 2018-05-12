@@ -4,6 +4,10 @@
   "author": "Aria Buckles",
   "license": "MIT",
   "main": "lib/amorphous.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ariabuckles/amorphous.git"
+  },
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
