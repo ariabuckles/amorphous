@@ -37,7 +37,7 @@ describe('Two AppComponent system', () => {
   class System extends RootAppComponent {
     constructor(props) {
       super(props);
-      this.appState = { text: '' };
+      this.appState = { text: 'hi' };
     }
 
     static getDerivedAppState = (appState) => {
@@ -48,7 +48,7 @@ describe('Two AppComponent system', () => {
 
     render() {
       return (
-        <div className="App">
+        <div>
           <Input />
           <Output />
         </div>
@@ -57,4 +57,61 @@ describe('Two AppComponent system', () => {
   }
 
 
+  describe('initialization and rendering', () => {
+    it('should render an input and a button', () => {
+      const test = TestRenderer.create(<System />);
+      assert.deepEqual(test.toJSON().children.map(child => child.type), [
+        'input', 'span'
+      ]);
+    });
+
+    it('should render an input with the correct initialized value', () => {
+      const test = TestRenderer.create(<System />);
+      const input = test.root.findByType('input');
+      assert.deepEqual(input.props.value, 'hi');
+    });
+
+    it('should render a span with the correct derived value', () => {
+      const test = TestRenderer.create(<System />);
+      const span = test.root.findByType('span');
+      assert.deepEqual(span.children, ['2']);
+    });
+
+    it('should render all correct values and derived values', () => {
+      const test = TestRenderer.create(<System />);
+      // get rid of functions:
+      assert.deepEqual(JSON.parse(JSON.stringify(test.toJSON())), {
+        type: 'div',
+        props: {},
+        children: [
+          {
+            type: 'input',
+            props: {
+              type: 'text',
+              value: 'hi',
+            },
+            children: null
+          },
+          {
+            type: 'span',
+            props: {},
+            children: [
+              '2',
+            ],
+          }
+        ],
+      });
+    });
+  });
+
+  describe('cross-component interactions', () => {
+    it('should send a letter from the input to the output', () => {
+      const test = TestRenderer.create(<System />);
+      const input = test.root.findByType('input');
+      const span = test.root.findByType('span');
+      input.props.onChange({target: {value: 'hi!'}});
+      assert.deepEqual(input.props.value, 'hi!');
+      assert.deepEqual(span.children, ['3']);
+    });
+  });
 });
