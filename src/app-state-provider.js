@@ -17,15 +17,17 @@ const getNewAppStateRecursive = (path, i, subState, update) => {
   );
 };
 
-export default class AppStateProvider<AppState : Object> extends React.Component<{
-  children: React.Node,
-  appState: AppState,
-  getDerivedAppState: (AppState) => $Shape<AppState>,
-}, AppState> {
-
+export default class AppStateProvider<AppState: Object> extends React.Component<
+  {
+    children: React.Node,
+    appState: AppState,
+    getDerivedAppState: (AppState) => $Shape<AppState>,
+  },
+  AppState
+> {
   setAppState: SetAppState<AppState>;
 
-  constructor(props : {
+  constructor(props: {
     children: React.Node,
     appState: AppState,
     getDerivedAppState: (AppState) => $Shape<AppState>,
@@ -52,7 +54,7 @@ export default class AppStateProvider<AppState : Object> extends React.Component
     );
   }
 
-  setAppState(...args : any) {
+  setAppState(...args: any) {
     let path = [];
     let i = 0;
     while (i < args.length && typeof args[i] === 'string') {
