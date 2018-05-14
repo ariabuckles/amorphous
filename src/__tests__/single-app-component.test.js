@@ -1,11 +1,14 @@
-import { strict as assert } from 'assert';
-import React from 'react';
+// @flow
+import {describe, it} from 'mocha'
+import assert from 'assert';
+// TODO: import { strict as assert } from 'assert'; once flow supports strict assert
+import * as React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { RootAppComponent, AppComponent } from '../amorphous';
 
 describe('Single AppComponent', () => {
   describe('appState access', () => {
-    class AccessApp extends AppComponent {
+    class AccessApp extends AppComponent<{}, void, { count?: number }> {
       render() {
         return (
           <button
@@ -20,7 +23,7 @@ describe('Single AppComponent', () => {
       }
     }
 
-    class AccessRoot extends RootAppComponent {
+    class AccessRoot extends RootAppComponent<{}, void, { count?: number }> {
       render() {
         return (
           <AccessApp />
@@ -38,7 +41,9 @@ describe('Single AppComponent', () => {
   });
 
   describe('lifecycle', () => {
-    class LifeCycleApp extends AppComponent {
+    class LifeCycleApp extends AppComponent<{}, { state?: number }, { count: number }> {
+      logs: Array<any>;
+
       constructor(props) {
         super(props);
         this.state = {};
@@ -104,7 +109,9 @@ describe('Single AppComponent', () => {
       }
     }
 
-    class LifeCycleRoot extends RootAppComponent {
+    class LifeCycleRoot extends RootAppComponent<any, void, { count: number }> {
+      node: LifeCycleApp;
+
       constructor(props) {
         super(props);
         this.appState = { count: 0 };

@@ -5,7 +5,7 @@ const AppStateContext = React.createContext({
   appState: ({} : any),
   setAppState: (
     update: any,
-    cb: () => void
+    cb: any
   ) => {
     throw new Error(
       'Amorphous: to use appState, You must provide a RootAppComponent at the ' +

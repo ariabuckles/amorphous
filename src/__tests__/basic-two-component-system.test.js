@@ -1,10 +1,13 @@
-import { strict as assert } from 'assert';
-import React from 'react';
+// @flow
+import {describe, it} from 'mocha'
+import assert from 'assert';
+// TODO: import { strict as assert } from 'assert'; once flow supports strict assert
+import * as React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { RootAppComponent, AppComponent } from '../amorphous';
 
 describe('Two AppComponent system', () => {
-  class Input extends AppComponent {
+  class Input extends AppComponent<{}, void, { text: string }> {
     shouldComponentUpdate(nextProps, nextState, nextAppState) {
       return nextAppState.text !== this.appState.text;
     }
@@ -20,7 +23,7 @@ describe('Two AppComponent system', () => {
     }
   }
 
-  class Output extends AppComponent {
+  class Output extends AppComponent<{}, void, { length: number }> {
     shouldComponentUpdate(nextProps, nextState, nextAppState) {
       return nextAppState.length !== this.appState.length;
     }
@@ -34,10 +37,10 @@ describe('Two AppComponent system', () => {
     }
   }
 
-  class System extends RootAppComponent {
+  class System extends RootAppComponent<{}, void, {text: string, length: number}> {
     constructor(props) {
       super(props);
-      this.appState = { text: 'hi' };
+      this.appState = { text: 'hi', length: 0 };
     }
 
     static getDerivedAppState = (appState) => {

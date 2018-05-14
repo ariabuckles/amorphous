@@ -9,7 +9,7 @@ export default class AppComponent<Props, State, AppState : Object>
   implements GenericAppComponent<Props, State, AppState>
 {
   static getDerivedAppState: (AppState) => $Shape<AppState>;
-  render: () => React.Node;
+  +render: () => React.Node;
   appState: AppState;
   setAppState: SetAppState<AppState>;
 
