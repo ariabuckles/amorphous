@@ -1,5 +1,7 @@
+// @flow
 import * as React from 'react';
 import AppStateContext from './app-state-context';
+import type { SetAppState } from './types';
 
 const getNewAppStateRecursive = (path, i, subState, update) => {
   if (i === path.length) {
@@ -15,8 +17,19 @@ const getNewAppStateRecursive = (path, i, subState, update) => {
   );
 };
 
-export default class AppStateProvider extends React.Component {
-  constructor(props) {
+export default class AppStateProvider<AppState : Object> extends React.Component<{
+  children: React.Node,
+  appState: AppState,
+  getDerivedAppState: (AppState) => $Shape<AppState>,
+}, AppState> {
+
+  setAppState: SetAppState<AppState>;
+
+  constructor(props : {
+    children: React.Node,
+    appState: AppState,
+    getDerivedAppState: (AppState) => $Shape<AppState>,
+  }) {
     super(props);
     this.state = this.props.appState || {};
     if (props.getDerivedAppState) {
@@ -39,7 +52,7 @@ export default class AppStateProvider extends React.Component {
     );
   }
 
-  setAppState(...args) {
+  setAppState(...args : any) {
     let path = [];
     let i = 0;
     while (i < args.length && typeof args[i] === 'string') {

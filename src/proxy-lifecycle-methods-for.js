@@ -1,8 +1,10 @@
+// @flow
 import * as React from 'react';
+import type { GenericAppComponent } from './types';
 
 // From https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging
-const getDisplayName = (WrappedComponent) => {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+const getDisplayName = (WrappedComponent: Function) => {
+  return (WrappedComponent : Object).displayName || WrappedComponent.name || 'Component';
 };
 
 const stubMethods = {
@@ -21,7 +23,7 @@ const stubMethods = {
   // componentDidCatch requires no proxying
 };
 
-const proxyLifecycleMethodsFor = (self) => {
+const proxyLifecycleMethodsFor = <Props, State, AppState : Object>(self : GenericAppComponent<Props, State, AppState>) => {
   let original = {};
 
   // AppComponentProxy method definitions
@@ -72,23 +74,28 @@ const proxyLifecycleMethodsFor = (self) => {
   };
 
   // AppComponentProxy class
-  const AppComponentProxy = function(props) {
-    React.Component.apply(this, props);
+  /*::
+  type ProxyProps = {
+    props: Props,
+    state: State,
+    appState: AppState,
+    setAppState: (update: $Shape<AppState> | (appState: AppState) => $Shape<AppState>, cb: () => void) => void,
   };
-  AppComponentProxy.prototype = Object.create(React.Component.prototype);
-  AppComponentProxy.displayName = `AppComponentProxy(${getDisplayName(
+  */
+  class AppComponentProxy<ProxyProps> extends React.Component<ProxyProps> {}
+  (AppComponentProxy : Object).displayName = `AppComponentProxy(${getDisplayName(
     self.constructor
   )})`;
 
   // Move methods from `self` to AppComponentProxy (and create `original` obj)
   for (const method in proxyMethods) {
-    if (self[method]) {
+    if ((self : Object)[method]) {
       // Create `original` object
-      original[method] = self[method];
+      original[method] = (self : Object)[method];
       // Proxy method calls on proxy component to the instance (self) component
-      AppComponentProxy.prototype[method] = proxyMethods[method];
+      (AppComponentProxy : Function).prototype[method] = proxyMethods[method];
       // Take proxied methods off `self` (as far as react sees)
-      self[method] = stubMethods[method];
+      (self : Object)[method] = stubMethods[method];
     }
   }
 
