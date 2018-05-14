@@ -79,7 +79,7 @@ const proxyLifecycleMethodsFor = <Props, State, AppState: Object>(
     },
   };
 
-  // AppComponentProxy class
+  /*:: // eslint thinks this is an unused var :/
   type ProxyProps = {
     props: Props,
     state: State,
@@ -89,6 +89,7 @@ const proxyLifecycleMethodsFor = <Props, State, AppState: Object>(
       cb: () => void
     ) => void,
   };
+  */
   class AppComponentProxy<ProxyProps> extends React.Component<ProxyProps> {}
   (AppComponentProxy: Object).displayName = `AppComponentProxy(${getDisplayName(
     self.constructor
