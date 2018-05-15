@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
-import AppStateContext from './app-state-context';
-import type { SetAppState } from './types';
+import { DefaultAppStateContext } from './app-state-context';
+import type { SetAppState, AppStateContext } from './types';
 
 const getNewAppStateRecursive = (path, i, subState, update) => {
   if (i === path.length) {
@@ -38,6 +38,7 @@ export default class AppStateProvider<AppState: Object> extends React.Component<
 
   constructor(props: {
     children: React.Node,
+    context?: AppStateContext<AppState>,
     appState: AppState,
     getDerivedAppState: (AppState) => $Shape<AppState>,
   }) {
@@ -55,11 +56,11 @@ export default class AppStateProvider<AppState: Object> extends React.Component<
 
   render() {
     return (
-      <AppStateContext.Provider
+      <DefaultAppStateContext.Provider
         value={{ appState: this.state, setAppState: this.setAppState }}
       >
         {this.props.children}
-      </AppStateContext.Provider>
+      </DefaultAppStateContext.Provider>
     );
   }
 

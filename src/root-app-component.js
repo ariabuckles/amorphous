@@ -1,25 +1,20 @@
 // @flow
 import * as React from 'react';
 import AppStateProvider from './app-state-provider';
-import AppStateContext from './app-state-context';
+import { DefaultAppStateContext } from './app-state-context';
 import proxyLifecycleMethodsFor from './proxy-lifecycle-methods-for';
-import type { GenericAppComponent, SetAppState } from './types';
+import type { GenericAppComponent, AppComponentProxyType, SetAppState } from './types';
 
 export default class RootAppComponent<Props, State, AppState: Object>
   extends React.Component<Props, State>
   implements GenericAppComponent<Props, State, AppState> {
+  +__AppComponentProxy: AppComponentProxyType<Props, State, AppState>;
+
   static getDerivedAppState: (AppState) => $Shape<AppState>;
 
   +render: () => React.Node;
   appState: AppState;
   setAppState: SetAppState<AppState>;
-
-  +__AppComponentProxy: React.ComponentType<{
-    props: Props,
-    state: State,
-    appState: AppState,
-    setAppState: SetAppState<AppState>,
-  }>;
 
   constructor(props: Props) {
     super(props);
@@ -38,7 +33,7 @@ export default class RootAppComponent<Props, State, AppState: Object>
         appState={this.appState}
         getDerivedAppState={this.constructor.getDerivedAppState}
       >
-        <AppStateContext.Consumer>
+        <DefaultAppStateContext.Consumer>
           {({ appState, setAppState }) => (
             <AppComponentProxy
               props={this.props}
@@ -47,7 +42,7 @@ export default class RootAppComponent<Props, State, AppState: Object>
               setAppState={setAppState}
             />
           )}
-        </AppStateContext.Consumer>
+        </DefaultAppStateContext.Consumer>
       </AppStateProvider>
     );
   }

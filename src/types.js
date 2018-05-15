@@ -51,6 +51,26 @@ export type SetAppState<AppState: Object> = ((
     cb?: () => void
   ) => void);
 
+export type AppComponentProxyType<Props, State, AppState> = React.ComponentType<{
+    props: Props,
+    state: State,
+    appState: AppState,
+    setAppState: SetAppState<AppState>,
+  }>;
+
+export type AppStateContext<AppState> = {
+  Provider: React.ComponentType<{value: {
+    appState: AppState,
+    setAppState: SetAppState<AppState>,
+  }}>,
+  Consumer: React.ComponentType<{
+    children: ({
+      appState: AppState,
+      setAppState: SetAppState<AppState>
+    }) => React.Node // TODO: type this more strictly?
+  }>
+};
+
 export interface GenericAppComponent<Props, State, AppState: Object> {
   +constructor: React.ComponentType<Props>;
   props: Props;
@@ -60,14 +80,6 @@ export interface GenericAppComponent<Props, State, AppState: Object> {
   +render: () => React.Node;
   setAppState: SetAppState<AppState>;
 
-  +__AppComponentProxy: React.ComponentType<{
-    props: Props,
-    state: State,
-    appState: AppState,
-    setAppState: SetAppState<AppState>,
-  }>;
+  +__AppComponentProxy: AppComponentProxyType<Props, State, AppState>;
 }
 
-export interface ES5ReactComponentType<Props> {
-  +prototype: $Shape<React.Component<Props>>;
-}
