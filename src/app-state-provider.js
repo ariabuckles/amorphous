@@ -11,9 +11,18 @@ const getNewAppStateRecursive = (path, i, subState, update) => {
       typeof update === 'function' ? update(subState) : update
     );
   }
+  const subPath = path[i];
   return Object.assign(
     {},
-    getNewAppStateRecursive(path, i + 1, subState[path[i]], update)
+    subState[subPath],
+    {
+      [subPath]: getNewAppStateRecursive(
+        path,
+        i + 1,
+        subState[subPath] || {},
+        update
+      ),
+    }
   );
 };
 

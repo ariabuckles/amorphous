@@ -9,5 +9,5 @@
 - [x] fix proxy component name for better debugging
 - [x] provide appState to RootComponent?? (and rename to RootAppComponent??)
 - [x] replace wrapMethod for render with just assignment
-- [ ] fix bug/crash in setAppState path specification when path not present
+- [x] fix bug/crash in setAppState path specification when path not present
 - [ ] how does a lib really interact? if it renders children from main app??
