@@ -10,4 +10,7 @@
 - [x] provide appState to RootComponent?? (and rename to RootAppComponent??)
 - [x] replace wrapMethod for render with just assignment
 - [x] fix bug/crash in setAppState path specification when path not present
-- [ ] how does a lib really interact? if it renders children from main app??
+- [x] how does a lib really interact? if it renders children from main app?? add lib context
+- [ ] add PureAppComponent to help fix the optimization story
+- [ ] tests for multi-component system
+- [ ] tests for library context
