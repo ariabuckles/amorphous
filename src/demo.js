@@ -15,23 +15,6 @@ class Input extends AppComponent {
 }
 
 class Output extends AppComponent {
-  shouldComponentUpdate(nextProps, nextState, nextAppState) {
-    console.log(
-      'shouldComponentUpdate: prev: ',
-      this.props,
-      this.state,
-      this.appState
-    );
-    console.log(
-      'shouldComponentUpdate: next: ',
-      nextProps,
-      nextState,
-      nextAppState
-    );
-    console.log('---');
-    return nextAppState.text !== this.appState.text;
-  }
-
   render() {
     return (
       <span>
@@ -40,57 +23,17 @@ class Output extends AppComponent {
       </span>
     );
   }
-
-  componentDidUpdate(prevProps, prevState, snapshot, prevAppState) {
-    console.log(
-      'componentDidUpdate: prev: ',
-      prevProps,
-      prevState,
-      prevAppState
-    );
-    console.log(
-      'componentDidUpdate: next: ',
-      this.props,
-      this.state,
-      this.appState
-    );
-  }
 }
 
 class App extends RootAppComponent {
-  constructor(props) {
-    super(props);
-    this.appState = { text: 'hi' };
-  }
-
-  static getDerivedAppState = (appState) => {
-    return {
-      length: appState.text.length,
-    };
-  };
+  appState = { text: 'hi' };
 
   render() {
     return (
-      <div className="App">
-        <Input iProp="i" />
-        <Output oProp="o" />
-        <span> : {this.appState.length}</span>
+      <div>
+        <Input />
+        <Output />
       </div>
-    );
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot, prevAppState) {
-    console.log(
-      'ROOT componentDidUpdate: prev: ',
-      prevProps,
-      prevState,
-      prevAppState
-    );
-    console.log(
-      'ROOT componentDidUpdate: next: ',
-      this.props,
-      this.state,
-      this.appState
     );
   }
 }
