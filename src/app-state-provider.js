@@ -30,17 +30,23 @@ export default class AppStateProvider<AppState: Object> extends React.Component<
   {
     children: React.Node,
     appState: AppState,
-    getDerivedAppState: (AppState) => $Shape<AppState>,
+    context: AppStateContext<AppState>,
+    getDerivedAppState: ?(AppState) => $Shape<AppState>,
   },
   AppState
 > {
   setAppState: SetAppState<AppState>;
 
+  static defaultProps = {
+    context: DefaultAppStateContext,
+    getDerivedAppState: null,
+  }
+
   constructor(props: {
     children: React.Node,
-    context?: AppStateContext<AppState>,
+    context: AppStateContext<AppState>,
     appState: AppState,
-    getDerivedAppState: (AppState) => $Shape<AppState>,
+    getDerivedAppState: ?(AppState) => $Shape<AppState>,
   }) {
     super(props);
     this.state = this.props.appState || {};
@@ -55,12 +61,13 @@ export default class AppStateProvider<AppState: Object> extends React.Component<
   }
 
   render() {
+    const context = this.props.context;
     return (
-      <DefaultAppStateContext.Provider
+      <context.Provider
         value={{ appState: this.state, setAppState: this.setAppState }}
       >
         {this.props.children}
-      </DefaultAppStateContext.Provider>
+      </context.Provider>
     );
   }
 

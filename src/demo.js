@@ -1,20 +1,29 @@
 import * as React from 'react';
 
-import { AppComponent, RootAppComponent } from './amorphous';
+import { AppComponent, RootAppComponent, createAppStateContext } from './amorphous';
 
-class Input extends AppComponent {
+const MyAppStateContext = createAppStateContext();
+class MyAppComponent extends AppComponent {
+  appStateContext = MyAppStateContext;
+}
+class MyRootAppComponent extends RootAppComponent {
+  appStateContext = MyAppStateContext;
+}
+
+class Input extends MyAppComponent {
+
   render() {
     return (
       <input
         type="text"
-        value={this.appState.text}
+        value={this.appState.text || 'null'}
         onChange={(e) => this.setAppState({ text: e.target.value })}
       />
     );
   }
 }
 
-class Output extends AppComponent {
+class Output extends MyAppComponent {
   render() {
     return (
       <span>
@@ -25,7 +34,7 @@ class Output extends AppComponent {
   }
 }
 
-class App extends RootAppComponent {
+class App extends MyRootAppComponent {
   appState = { text: 'hi' };
 
   render() {
