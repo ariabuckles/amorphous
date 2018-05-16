@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { DefaultAppStateContext } from './app-state-context';
 import proxyLifecycleMethodsFor from './proxy-lifecycle-methods-for';
+import type { GenericAppComponent, AppComponentProxyType, SetAppState, AppStateContext } from './types';
 
 export default class AppComponent<Props, State, AppState: Object>
   extends React.Component<Props, State>
