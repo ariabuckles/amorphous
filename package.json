@@ -30,7 +30,8 @@
   "scripts": {
     "start": "react-scripts start",
     "format": "prettier --write src/*.js",
-    "build": "NODE_ENV=production babel src -d lib && flow-copy-source src lib",
+    "build": "NODE_ENV=production babel src -d lib && flow-copy-source src lib && npm run build:docs",
+    "build:docs": "scripts/build-docs",
     "prepublishOnly": "npm run build",
     "build-demo": "react-scripts build",
     "test": "flow && NODE_ENV=test mocha -r babel-register src/__tests__/*.js",

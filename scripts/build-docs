@@ -1,0 +1,14 @@
+#!/bin/bash
+mkdir -p temp/
+mkdir -p docs/
+rm -rf docs/*
+
+#split -p '^# ' -a 1 README.md docs/doc.
+csplit -k -f docs/doc. -n 1 README.md '/^# /' '{100}'
+ls docs | xargs -I% mv docs/% docs/%.md
+
+ls docs > temp/docs.txt
+cat README.md | grep '^# ' | sed -e 's/# //' > temp/sections.txt
+paste temp/docs.txt temp/sections.txt | sed 's/^\([^[:blank:]]*\)[[:blank:]]\(.*\)/ * [\2](\1)/g' > docs/summary.md
+
+rm -rf temp/
