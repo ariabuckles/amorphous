@@ -1,8 +1,13 @@
 # Amorphous
 
-[![version](https://img.shields.io/npm/v/amorphous.svg)][npm]
+[![version](https://img.shields.io/npm/v/amorphous.svg)][npm-package]
 [![license](https://img.shields.io/github/license/ariabuckles/amorphous.svg)][LICENSE]
-[![build status](https://travis-ci.com/ariabuckles/amorphous.svg?branch=master)](https://travis-ci.com/ariabuckles/amorphous)
+[![build status](https://travis-ci.com/ariabuckles/amorphous.svg?branch=master)][travis-ci]
+
+[npm-package]: https://www.npmjs.com/package/amorphous
+[LICENSE]: https://github.com/ariabuckles/amorphous/blob/master/LICENSE
+[travis-ci]: https://travis-ci.com/ariabuckles/amorphous
+
 React state management, without the new concepts.
 
 Amorphous is designed to help you get your app's state management up and
