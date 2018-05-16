@@ -1,7 +1,7 @@
 # Amorphous
 
-[![version](https://img.shields.io/npm/v/amorphous.svg)][npm]
-[![license](https://img.shields.io/github/license/ariabuckles/amorphous.svg)][LICENSE]
+[![version](https://img.shields.io/npm/v/amorphous.svg)][https://www.npmjs.com/package/amorphous]
+[![license](https://img.shields.io/github/license/ariabuckles/amorphous.svg)][https://github.com/ariabuckles/amorphous/blob/master/LICENSE]
 [![build status](https://travis-ci.com/ariabuckles/amorphous.svg?branch=master)](https://travis-ci.com/ariabuckles/amorphous)
 React state management, without the new concepts.
 
