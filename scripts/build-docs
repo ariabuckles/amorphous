@@ -12,7 +12,7 @@ ls docsource | xargs -I% mv docsource/% docsource/%.md
 
 ls docsource > temp/docs.txt
 cat README.md | grep '^# ' | sed -e 's/# //' > temp/sections.txt
-cat temp/sections.txt | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | sed 's/$/.md/g' > temp/files.txt
+cat temp/sections.txt | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | sed -e 's/`//g' -e 's/$/.md/g' > temp/files.txt
 
 # hacky way of renaming the files from temp/docs.txt to temp/files.txt
 (cd docsource && paste ../temp/docs.txt ../temp/files.txt | xargs -I% bash -c 'mv %')
