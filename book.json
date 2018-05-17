@@ -5,5 +5,10 @@
     "structure": {
         "readme": "amorphous.md",
         "summary": "table-of-contents.md"
-    }
+    },
+    "plugins": [
+      "-lunr",
+      "-search",
+      "search-plus"
+    ]
 }

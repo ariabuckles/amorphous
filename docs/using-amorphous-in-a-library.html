@@ -17,11 +17,11 @@
     
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search-plus/search.css">
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="higher-order-components.html" />
+    <link rel="next" href="flow-types.html" />
     
     
     <link rel="prev" href="lifecycle-methods.html" />
@@ -154,12 +154,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="higher-order-components.html">
+        <li class="chapter " data-level="1.6" data-path="flow-types.html">
             
-                <a href="higher-order-components.html">
+                <a href="flow-types.html">
             
                     
-                    Higher Order Components
+                    Flow Types
             
                 </a>
             
@@ -207,7 +207,7 @@
                     <div class="page-wrapper" tabindex="-1" role="main">
                         <div class="page-inner">
                             
-<div id="book-search-results">
+<div class="search-plus" id="book-search-results">
     <div class="search-noresults">
     
                                 <section class="normal markdown-section">
@@ -217,7 +217,7 @@
 sure your library&apos;s appState does not conflict with the client&apos;s appState.</p>
 <p>Amorphous uses React context to control which components have access
 to which appStates. To make a new context for your library, use:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { createAppStateContext } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./amorphous&apos;</span>;
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { createAppStateContext } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;amorphous&apos;</span>;
 
 <span class="hljs-keyword">const</span> MyAppStateContext = createAppStateContext();
 </code></pre>
@@ -239,7 +239,7 @@ components:</p>
 <p>To make this less reduntant, I suggest making your own RootAppComponent and
 AppComponent classes for your library with extension:</p>
 <h2 id="making-amorphous-classes-for-your-library">Making Amorphous classes for your library</h2>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { AppComponent, RootAppComponent, createAppStateContext } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./amorphous&apos;</span>;
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { AppComponent, RootAppComponent, createAppStateContext } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;amorphous&apos;</span>;
 
 <span class="hljs-keyword">const</span> MyAppStateContext = createAppStateContext();
 
@@ -285,7 +285,7 @@ exports.</p>
                 </a>
                 
                 
-                <a href="higher-order-components.html" class="navigation navigation-next " aria-label="Next page: Higher Order Components">
+                <a href="flow-types.html" class="navigation navigation-next " aria-label="Next page: Flow Types">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -296,7 +296,7 @@ exports.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Using Amorphous in a Library","level":"1.5","depth":1,"next":{"title":"Higher Order Components","level":"1.6","depth":1,"path":"higher-order-components.md","ref":"higher-order-components.md","articles":[]},"previous":{"title":"Lifecycle Methods","level":"1.4","depth":1,"path":"lifecycle-methods.md","ref":"lifecycle-methods.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"using-amorphous-in-a-library.md","mtime":"2018-05-17T02:47:30.365Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T02:47:31.335Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Using Amorphous in a Library","level":"1.5","depth":1,"next":{"title":"Flow Types","level":"1.6","depth":1,"path":"flow-types.md","ref":"flow-types.md","articles":[]},"previous":{"title":"Lifecycle Methods","level":"1.4","depth":1,"path":"lifecycle-methods.md","ref":"lifecycle-methods.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"lunr":{"ignoreSpecialCharacters":true},"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"using-amorphous-in-a-library.md","mtime":"2018-05-17T04:54:08.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T04:54:38.620Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -306,19 +306,11 @@ exports.</p>
     <script src="gitbook/theme.js"></script>
     
         
-        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        <script src="gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
         
     
         
-        <script src="gitbook/gitbook-plugin-search/search.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        <script src="gitbook/gitbook-plugin-search-plus/search.js"></script>
         
     
         

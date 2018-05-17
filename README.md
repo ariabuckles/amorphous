@@ -54,7 +54,7 @@ Both `AppComponent` and `RootAppComponent` have access to:
 ## Full Example:
 
 ```javascript
-import { AppComponent, RootAppComponent } from './amorphous';
+import { AppComponent, RootAppComponent } from 'amorphous';
 
 class Input extends AppComponent {
 
@@ -156,14 +156,14 @@ class Input extends AppComponent {
 And you're ready to send shared state to anywhere your app needs it!
 
 
-# `RootAppComponent`
+# RootAppComponent
 
 `RootAppComponent` creates a new appState, and should be extended by your
 app's root component. Any `AppComponent` must be a descendent of a
 `RootAppComponent` (that is, all `AppComponent`s must have a `RootAppComponent`
 above them, but not necessarily directly above them, in their component tree)
 
-### API
+### Usage
 
 `RootAppComponent` is a base component, so you should `extend` from it just
 like you would `React.Component`.
@@ -192,6 +192,50 @@ class App extends RootAppComponent {
   }
 }
 ```
+
+### API
+
+#### `this.appState`
+
+Initialize or access `appState`. `this.appState` should be initialized in your root
+component's constructor (or via `appState =` inside the class body).
+
+#### `this.appStateContext`
+
+For library usecases: specify a non-default context for containing `appState`. See
+[using Amorphous in a library][using-amorphous-in-a-library.md] for more details.
+
+#### `static getDerivedAppState(appState)`
+
+Calculate computed values on appState. This is called for every `appState` update,
+and is merged shallowly into `appState`. See
+[lifecycle methods](lifecycle-methods.md) for more details and examples.
+
+#### `shouldComponentUpdate(nextProps, nextState, nextAppState)`
+
+Amorphous AppComponents and RootAppComponents provide a third parameter to
+[shouldComponentUpdate][shouldComponentUpdate]: `nextAppState`, which indicates
+the next value of `appState`, so that components may avoid rendering if none
+of their dependent props/state/appState have changed. See
+[lifecycle methods](lifecycle-methods.md) for more details and examples.
+
+[shouldComponentUpdate]: https://reactjs.org/docs/react-component.html#shouldcomponentupdate
+
+#### `componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`
+
+Amorphous AppComponents and RootAppComponents provide a fourth parameter to
+[componentDidUpdate][componentDidUpdate]: `prevAppState`, which holds
+the value of `appState` before the most recent render, and may be useful
+for comparing with the new `this.appState` value to perform non-react
+updates after the component has rendered. See
+[lifecycle methods](lifecycle-methods.md) for more details and examples.
+
+*Note: `snapshot` is the return value of
+[`getSnapshotBeforeUpdate()`][getSnapshotBeforeUpdate], or `undefined`
+if no `getSnapshotBeforeUpdate()` is specified.*
+
+[componentDidUpdate]: https://reactjs.org/docs/react-component.html#componentdidupdate
+[getSnapshotBeforeUpdate]: https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate
 
 
 # Lifecycle Methods
@@ -228,7 +272,7 @@ Amorphous uses React context to control which components have access
 to which appStates. To make a new context for your library, use:
 
 ```javascript
-import { createAppStateContext } from './amorphous';
+import { createAppStateContext } from 'amorphous';
 
 const MyAppStateContext = createAppStateContext();
 ```
@@ -258,7 +302,7 @@ AppComponent classes for your library with extension:
 ## Making Amorphous classes for your library
 
 ```javascript
-import { AppComponent, RootAppComponent, createAppStateContext } from './amorphous';
+import { AppComponent, RootAppComponent, createAppStateContext } from 'amorphous';
 
 const MyAppStateContext = createAppStateContext();
 
@@ -274,12 +318,50 @@ Then everywhere you would use `AppComponent` or `RootAppComponent`, you
 can instead use `MyAppComponent` or `MyRootAppComponent` from that file's
 exports.
 
+# Flow Types
 
-# Higher Order Components
+Amorphous has full support for [flow](https://flow.org) types.
 
-Amorphous will also support a [higher order component][hoc] interface soon,
-if you would prefer not to extend from `AppComponent`.
+Here is the relevant type information for `RootAppComponent` and `AppComponent`:
+
+```typescript
+class RootAppComponent<Props, State, AppState: Object>
+  extends React.Component<Props, State> {
+
+}
+
+class AppComponent<Props, State, AppState: Object>
+  extends React.Component<Props, State> {
+
+}
+```
+
+To use these types, you can specify Props, State, and AppState types,
+and use these in your component declarations. We recommend creating
+your `AppState` type in its own file, which can be included from all
+your components.
+
+```typescript
+import { RootAppComponent } from 'amorphous';
+import type { AppState } from './my-app-state-type.js';
+
+type Props = {
+  mode: string,
+};
+
+type State = { };
+
+class App extends RootAppComponent<Props, State, AppState> {
+
+  appState: AppState = {
+    // ...
+  };
+
+  render() {
+    // ...
+  }
+}
+```
 
 
-[hoc]: https://reactjs.org/docs/higher-order-components.html
 

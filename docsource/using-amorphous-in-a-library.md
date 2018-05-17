@@ -7,7 +7,7 @@ Amorphous uses React context to control which components have access
 to which appStates. To make a new context for your library, use:
 
 ```javascript
-import { createAppStateContext } from './amorphous';
+import { createAppStateContext } from 'amorphous';
 
 const MyAppStateContext = createAppStateContext();
 ```
@@ -37,7 +37,7 @@ AppComponent classes for your library with extension:
 ## Making Amorphous classes for your library
 
 ```javascript
-import { AppComponent, RootAppComponent, createAppStateContext } from './amorphous';
+import { AppComponent, RootAppComponent, createAppStateContext } from 'amorphous';
 
 const MyAppStateContext = createAppStateContext();
 
@@ -52,5 +52,4 @@ export class MyRootAppComponent extends RootAppComponent {
 Then everywhere you would use `AppComponent` or `RootAppComponent`, you
 can instead use `MyAppComponent` or `MyRootAppComponent` from that file's
 exports.
-
 

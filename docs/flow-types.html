@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Higher Order Components · Amorphous</title>
+        <title>Flow Types · Amorphous</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -17,11 +17,11 @@
     
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search-plus/search.css">
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -152,12 +152,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6" data-path="higher-order-components.html">
+        <li class="chapter active" data-level="1.6" data-path="flow-types.html">
             
-                <a href="higher-order-components.html">
+                <a href="flow-types.html">
             
                     
-                    Higher Order Components
+                    Flow Types
             
                 </a>
             
@@ -195,7 +195,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Higher Order Components</a>
+        <a href="." >Flow Types</a>
     </h1>
 </div>
 
@@ -205,14 +205,48 @@
                     <div class="page-wrapper" tabindex="-1" role="main">
                         <div class="page-inner">
                             
-<div id="book-search-results">
+<div class="search-plus" id="book-search-results">
     <div class="search-noresults">
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="higher-order-components">Higher Order Components</h1>
-<p>Amorphous will also support a <a href="https://reactjs.org/docs/higher-order-components.html" target="_blank">higher order component</a> interface soon,
-if you would prefer not to extend from <code>AppComponent</code>.</p>
+                                <h1 id="flow-types">Flow Types</h1>
+<p>Amorphous has full support for <a href="https://flow.org" target="_blank">flow</a> types.</p>
+<p>Here is the relevant type information for <code>RootAppComponent</code> and <code>AppComponent</code>:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">class</span> RootAppComponent&lt;Props, State, AppState: <span class="hljs-built_in">Object</span>&gt;
+  extends React.Component&lt;Props, State&gt; {
+
+}
+
+<span class="hljs-keyword">class</span> AppComponent&lt;Props, State, AppState: <span class="hljs-built_in">Object</span>&gt;
+  extends React.Component&lt;Props, State&gt; {
+
+}
+</code></pre>
+<p>To use these types, you can specify Props, State, and AppState types,
+and use these in your component declarations. We recommend creating
+your <code>AppState</code> type in its own file, which can be included from all
+your components.</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { RootAppComponent } from <span class="hljs-string">&apos;amorphous&apos;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { AppState } from <span class="hljs-string">&apos;./my-app-state-type.js&apos;</span>;
+
+<span class="hljs-keyword">type</span> Props = {
+  mode: <span class="hljs-built_in">string</span>,
+};
+
+<span class="hljs-keyword">type</span> State = { };
+
+<span class="hljs-keyword">class</span> App extends RootAppComponent&lt;Props, State, AppState&gt; {
+
+  appState: AppState = {
+    <span class="hljs-comment">// ...</span>
+  };
+
+  render() {
+    <span class="hljs-comment">// ...</span>
+  }
+}
+</code></pre>
 
                                 
                                 </section>
@@ -252,7 +286,7 @@ if you would prefer not to extend from <code>AppComponent</code>.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Higher Order Components","level":"1.6","depth":1,"previous":{"title":"Using Amorphous in a Library","level":"1.5","depth":1,"path":"using-amorphous-in-a-library.md","ref":"using-amorphous-in-a-library.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"higher-order-components.md","mtime":"2018-05-17T02:47:30.366Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T02:47:31.335Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Flow Types","level":"1.6","depth":1,"previous":{"title":"Using Amorphous in a Library","level":"1.5","depth":1,"path":"using-amorphous-in-a-library.md","ref":"using-amorphous-in-a-library.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"lunr":{"ignoreSpecialCharacters":true},"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"flow-types.md","mtime":"2018-05-17T04:54:08.641Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T04:54:38.620Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -262,19 +296,11 @@ if you would prefer not to extend from <code>AppComponent</code>.</p>
     <script src="gitbook/theme.js"></script>
     
         
-        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        <script src="gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
         
     
         
-        <script src="gitbook/gitbook-plugin-search/search.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        <script src="gitbook/gitbook-plugin-search-plus/search.js"></script>
         
     
         

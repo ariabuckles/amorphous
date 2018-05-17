@@ -17,11 +17,11 @@
     
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search-plus/search.css">
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -154,12 +154,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="higher-order-components.html">
+        <li class="chapter " data-level="1.6" data-path="flow-types.html">
             
-                <a href="higher-order-components.html">
+                <a href="flow-types.html">
             
                     
-                    Higher Order Components
+                    Flow Types
             
                 </a>
             
@@ -207,17 +207,17 @@
                     <div class="page-wrapper" tabindex="-1" role="main">
                         <div class="page-inner">
                             
-<div id="book-search-results">
+<div class="search-plus" id="book-search-results">
     <div class="search-noresults">
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="rootappcomponent"><code>RootAppComponent</code></h1>
+                                <h1 id="rootappcomponent">RootAppComponent</h1>
 <p><code>RootAppComponent</code> creates a new appState, and should be extended by your
 app&apos;s root component. Any <code>AppComponent</code> must be a descendent of a
 <code>RootAppComponent</code> (that is, all <code>AppComponent</code>s must have a <code>RootAppComponent</code>
 above them, but not necessarily directly above them, in their component tree)</p>
-<h3 id="api">API</h3>
+<h3 id="usage">Usage</h3>
 <p><code>RootAppComponent</code> is a base component, so you should <code>extend</code> from it just
 like you would <code>React.Component</code>.</p>
 <pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RootAppComponent</span> </span>{
@@ -240,6 +240,33 @@ or in the constructor, just as you would with <code>state</code>:</p>
   }
 }
 </code></pre>
+<h3 id="api">API</h3>
+<h4 id="thisappstate"><code>this.appState</code></h4>
+<p>Initialize or access <code>appState</code>. <code>this.appState</code> should be initialized in your root
+component&apos;s constructor (or via <code>appState =</code> inside the class body).</p>
+<h4 id="thisappstatecontext"><code>this.appStateContext</code></h4>
+<p>For library usecases: specify a non-default context for containing <code>appState</code>. See
+[using Amorphous in a library][using-amorphous-in-a-library.md] for more details.</p>
+<h4 id="static-getderivedappstateappstate"><code>static getDerivedAppState(appState)</code></h4>
+<p>Calculate computed values on appState. This is called for every <code>appState</code> update,
+and is merged shallowly into <code>appState</code>. See
+<a href="lifecycle-methods.html">lifecycle methods</a> for more details and examples.</p>
+<h4 id="shouldcomponentupdatenextprops-nextstate-nextappstate"><code>shouldComponentUpdate(nextProps, nextState, nextAppState)</code></h4>
+<p>Amorphous AppComponents and RootAppComponents provide a third parameter to
+<a href="https://reactjs.org/docs/react-component.html#shouldcomponentupdate" target="_blank">shouldComponentUpdate</a>: <code>nextAppState</code>, which indicates
+the next value of <code>appState</code>, so that components may avoid rendering if none
+of their dependent props/state/appState have changed. See
+<a href="lifecycle-methods.html">lifecycle methods</a> for more details and examples.</p>
+<h4 id="componentdidupdateprevprops-prevstate-snapshot-prevappstate"><code>componentDidUpdate(prevProps, prevState, snapshot, prevAppState)</code></h4>
+<p>Amorphous AppComponents and RootAppComponents provide a fourth parameter to
+<a href="https://reactjs.org/docs/react-component.html#componentdidupdate" target="_blank">componentDidUpdate</a>: <code>prevAppState</code>, which holds
+the value of <code>appState</code> before the most recent render, and may be useful
+for comparing with the new <code>this.appState</code> value to perform non-react
+updates after the component has rendered. See
+<a href="lifecycle-methods.html">lifecycle methods</a> for more details and examples.</p>
+<p><em>Note: <code>snapshot</code> is the return value of
+<a href="https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate" target="_blank"><code>getSnapshotBeforeUpdate()</code></a>, or <code>undefined</code>
+if no <code>getSnapshotBeforeUpdate()</code> is specified.</em></p>
 
                                 
                                 </section>
@@ -283,7 +310,7 @@ or in the constructor, just as you would with <code>state</code>:</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"RootAppComponent","level":"1.3","depth":1,"next":{"title":"Lifecycle Methods","level":"1.4","depth":1,"path":"lifecycle-methods.md","ref":"lifecycle-methods.md","articles":[]},"previous":{"title":"Getting started","level":"1.2","depth":1,"path":"getting-started.md","ref":"getting-started.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"rootappcomponent.md","mtime":"2018-05-17T02:47:30.365Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T02:47:31.335Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"RootAppComponent","level":"1.3","depth":1,"next":{"title":"Lifecycle Methods","level":"1.4","depth":1,"path":"lifecycle-methods.md","ref":"lifecycle-methods.md","articles":[]},"previous":{"title":"Getting started","level":"1.2","depth":1,"path":"getting-started.md","ref":"getting-started.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"lunr":{"ignoreSpecialCharacters":true},"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"rootappcomponent.md","mtime":"2018-05-17T04:54:08.640Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T04:54:38.620Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -293,19 +320,11 @@ or in the constructor, just as you would with <code>state</code>:</p>
     <script src="gitbook/theme.js"></script>
     
         
-        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        <script src="gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
         
     
         
-        <script src="gitbook/gitbook-plugin-search/search.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        <script src="gitbook/gitbook-plugin-search-plus/search.js"></script>
         
     
         

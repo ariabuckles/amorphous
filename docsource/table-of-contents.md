@@ -1,6 +1,6 @@
  * [Amorphous](amorphous.md)
  * [Getting started](getting-started.md)
- * [`RootAppComponent`](rootappcomponent.md)
+ * [RootAppComponent](rootappcomponent.md)
  * [Lifecycle Methods](lifecycle-methods.md)
  * [Using Amorphous in a Library](using-amorphous-in-a-library.md)
- * [Higher Order Components](higher-order-components.md)
+ * [Flow Types](flow-types.md)

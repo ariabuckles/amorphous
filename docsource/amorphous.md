@@ -54,7 +54,7 @@ Both `AppComponent` and `RootAppComponent` have access to:
 ## Full Example:
 
 ```javascript
-import { AppComponent, RootAppComponent } from './amorphous';
+import { AppComponent, RootAppComponent } from 'amorphous';
 
 class Input extends AppComponent {
 
