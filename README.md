@@ -8,11 +8,10 @@
 [LICENSE]: https://github.com/ariabuckles/amorphous/blob/master/LICENSE
 [travis-ci]: https://travis-ci.com/ariabuckles/amorphous
 
-React state management, without the new concepts.
-
 Amorphous makes sharing state in react as easy as using `setState`.
-Just like `this.state` is a component's state and can be updated with
-`setState`, `this.appState` is an app's state, which can be updated with
+
+Just as `this.state` is a component's state and can be updated with
+`setState`, `this.appState` is an app's state and can be updated with
 `this.setAppState`:
 
 ```javascript
@@ -29,13 +28,30 @@ class Input extends AppComponent {
 }
 ```
 
-Amorphous is designed to help you get your app's state management up and
-running as quickly as possible while avoiding as many pitfalls as possible
-given the first constraint.
+Amorphous is designed to:
 
-Amorphous also provides you several tools to help avoid potential pitfalls,
-and uses React's new context API to prevent having actual globals that could
-poorly interact with third party code.
+ * get your app's state management working as quickly as possible
+ * avoid unnecessary pitfalls while doing so
+
+## Usage
+
+Amorphous has two main classes:
+
+ * `AppComponent`: a class for components that use appState
+ * `RootAppComponent`: a class for the root component of your app
+
+To use `AppComponent`, you must have a `RootAppComponent` at the
+root of your app. (For library authors, see
+[using Amorphous in a library][library.md].)
+
+Both `AppComponent` and `RootAppComponent` have access to:
+
+ * `this.appState`
+ * `this.setAppState`
+ * `shouldComponentUpdate(nextProps, nextState, appState)`
+ * `componentDidUpdate(nextProps, nextState, snapshot, appState)`
+
+
 
 ```javascript
 import { AppComponent, RootAppComponent } from './amorphous';

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Higher Order Components · Amorphous</title>
+        <title>Lifecycle Methods · Amorphous</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="higher-order-components.html" />
     
-    <link rel="prev" href="doc.c.html" />
+    
+    <link rel="prev" href="getting-started.html" />
     
 
     </head>
@@ -100,9 +102,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="doc.b.html">
+        <li class="chapter " data-level="1.2" data-path="getting-started.html">
             
-                <a href="doc.b.html">
+                <a href="getting-started.html">
             
                     
                     Getting started
@@ -113,9 +115,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="doc.c.html">
+        <li class="chapter active" data-level="1.3" data-path="lifecycle-methods.html">
             
-                <a href="doc.c.html">
+                <a href="lifecycle-methods.html">
             
                     
                     Lifecycle Methods
@@ -126,9 +128,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4" data-path="doc.d.html">
+        <li class="chapter " data-level="1.4" data-path="higher-order-components.html">
             
-                <a href="doc.d.html">
+                <a href="higher-order-components.html">
             
                     
                     Higher Order Components
@@ -169,7 +171,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Higher Order Components</a>
+        <a href="." >Lifecycle Methods</a>
     </h1>
 </div>
 
@@ -184,9 +186,24 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="higher-order-components">Higher Order Components</h1>
-<p>Amorphous will also support a <a href="https://reactjs.org/docs/higher-order-components.html" target="_blank">higher order component</a> interface soon,
-if you would prefer not to extend from <code>AppComponent</code>.</p>
+                                <h1 id="lifecycle-methods">Lifecycle Methods</h1>
+<h2 id="react-lifecycle">React Lifecycle</h2>
+<p>Amorphous provides this.appState and this.setAppState during and after
+your component&apos;s first render. They are not accessible in the constructor.</p>
+<p>Additionally, Amorphous provides an <code>appState</code> parameter for the following
+React lifecycle methods:</p>
+<ul>
+<li><code>shouldComponentUpdate(nextProps, nextState, nextAppState)</code></li>
+<li><code>componentDidUpdate(prevProps, prevState, snapshot, prevAppState)</code></li>
+</ul>
+<p>You may use either of these methods to monitor changes to <code>appState</code>
+and update your <code>AppComponent</code> properly, just like you would for <code>state</code>.</p>
+<h2 id="static-getderivedappstateappstate"><code>static getDerivedAppState(appState)</code></h2>
+<p>Similar to <code>getDerivedStateFromProps</code>, Amorphous supports a static
+<code>getDerivedAppState</code> method on the <code>RootAppComponent</code> only. This
+function may be used to trigger additional modifications of appState
+when appState is modified, which can be useful for caching expensive
+calculations or time-unique values.</p>
 
                                 
                                 </section>
@@ -214,10 +231,14 @@ if you would prefer not to extend from <code>AppComponent</code>.</p>
 
             
                 
-                <a href="doc.c.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Lifecycle Methods">
+                <a href="getting-started.html" class="navigation navigation-prev " aria-label="Previous page: Getting started">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="higher-order-components.html" class="navigation navigation-next " aria-label="Next page: Higher Order Components">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -226,7 +247,7 @@ if you would prefer not to extend from <code>AppComponent</code>.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Higher Order Components","level":"1.4","depth":1,"previous":{"title":"Lifecycle Methods","level":"1.3","depth":1,"path":"doc.c.md","ref":"doc.c.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"doc.a.md","glossary":"GLOSSARY.md","summary":"summary.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"doc.d.md","mtime":"2018-05-17T00:15:31.004Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T00:15:32.051Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Lifecycle Methods","level":"1.3","depth":1,"next":{"title":"Higher Order Components","level":"1.4","depth":1,"path":"higher-order-components.md","ref":"higher-order-components.md","articles":[]},"previous":{"title":"Getting started","level":"1.2","depth":1,"path":"getting-started.md","ref":"getting-started.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"lifecycle-methods.md","mtime":"2018-05-17T00:48:50.016Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T00:48:50.914Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

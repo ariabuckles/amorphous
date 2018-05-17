@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="doc.b.html" />
+    <link rel="next" href="getting-started.html" />
     
     
 
@@ -100,9 +100,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="doc.b.html">
+        <li class="chapter " data-level="1.2" data-path="getting-started.html">
             
-                <a href="doc.b.html">
+                <a href="getting-started.html">
             
                     
                     Getting started
@@ -113,9 +113,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="doc.c.html">
+        <li class="chapter " data-level="1.3" data-path="lifecycle-methods.html">
             
-                <a href="doc.c.html">
+                <a href="lifecycle-methods.html">
             
                     
                     Lifecycle Methods
@@ -126,9 +126,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="doc.d.html">
+        <li class="chapter " data-level="1.4" data-path="higher-order-components.html">
             
-                <a href="doc.d.html">
+                <a href="higher-order-components.html">
             
                     
                     Higher Order Components
@@ -188,10 +188,9 @@
 <p><a href="https://www.npmjs.com/package/amorphous" target="_blank"><img src="https://img.shields.io/npm/v/amorphous.svg" alt="version"></a>
 <a href="https://github.com/ariabuckles/amorphous/blob/master/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/ariabuckles/amorphous.svg" alt="license"></a>
 <a href="https://travis-ci.com/ariabuckles/amorphous" target="_blank"><img src="https://travis-ci.com/ariabuckles/amorphous.svg?branch=master" alt="build status"></a></p>
-<p>React state management, without the new concepts.</p>
-<p>Amorphous makes sharing state in react as easy as using <code>setState</code>.
-Just like <code>this.state</code> is a component&apos;s state and can be updated with
-<code>setState</code>, <code>this.appState</code> is an app&apos;s state, which can be updated with
+<p>Amorphous makes sharing state in react as easy as using <code>setState</code>.</p>
+<p>Just as <code>this.state</code> is a component&apos;s state and can be updated with
+<code>setState</code>, <code>this.appState</code> is an app&apos;s state and can be updated with
 <code>this.setAppState</code>:</p>
 <pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppComponent</span> </span>{
   render() {
@@ -205,12 +204,27 @@ Just like <code>this.state</code> is a component&apos;s state and can be updated
   }
 }
 </span></code></pre>
-<p>Amorphous is designed to help you get your app&apos;s state management up and
-running as quickly as possible while avoiding as many pitfalls as possible
-given the first constraint.</p>
-<p>Amorphous also provides you several tools to help avoid potential pitfalls,
-and uses React&apos;s new context API to prevent having actual globals that could
-poorly interact with third party code.</p>
+<p>Amorphous is designed to:</p>
+<ul>
+<li>get your app&apos;s state management working as quickly as possible</li>
+<li>avoid unnecessary pitfalls while doing so</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<p>Amorphous has two main classes:</p>
+<ul>
+<li><code>AppComponent</code>: a class for components that use appState</li>
+<li><code>RootAppComponent</code>: a class for the root component of your app</li>
+</ul>
+<p>To use <code>AppComponent</code>, you must have a <code>RootAppComponent</code> at the
+root of your app. (For library authors, see
+[using Amorphous in a library][library.md].)</p>
+<p>Both <code>AppComponent</code> and <code>RootAppComponent</code> have access to:</p>
+<ul>
+<li><code>this.appState</code></li>
+<li><code>this.setAppState</code></li>
+<li><code>shouldComponentUpdate(nextProps, nextState, appState)</code></li>
+<li><code>componentDidUpdate(nextProps, nextState, snapshot, appState)</code></li>
+</ul>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { AppComponent, RootAppComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./amorphous&apos;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppComponent</span> </span>{
@@ -278,7 +292,7 @@ class App extends RootAppComponent {
             
                 
                 
-                <a href="doc.b.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Getting started">
+                <a href="getting-started.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Getting started">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -289,7 +303,7 @@ class App extends RootAppComponent {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Amorphous","level":"1.1","depth":1,"next":{"title":"Getting started","level":"1.2","depth":1,"path":"doc.b.md","ref":"doc.b.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"doc.a.md","glossary":"GLOSSARY.md","summary":"summary.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"doc.a.md","mtime":"2018-05-17T00:15:31.002Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T00:15:32.051Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Amorphous","level":"1.1","depth":1,"next":{"title":"Getting started","level":"1.2","depth":1,"path":"getting-started.md","ref":"getting-started.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"amorphous.md","mtime":"2018-05-17T00:48:50.016Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T00:48:50.914Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
