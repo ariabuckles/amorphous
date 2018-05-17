@@ -1,36 +1,38 @@
-# RootAppComponent
+# AppComponent
 
-`RootAppComponent` creates a new appState, and should be extended by your
-app's root component. Any `AppComponent` must be a descendent of a
+`AppComponent` is a replacement for `React.Component` for any component that
+needs access to `appState`. Any `AppComponent` must be a descendent of a
 `RootAppComponent` (that is, all `AppComponent`s must have a `RootAppComponent`
 above them, but not necessarily directly above them, in their component tree).
 
 ### Usage
 
-`RootAppComponent` is a base component, so you should `extend` from it just
+`AppComponent` is a base component, so you should `extend` from it just
 like you would `React.Component`.
 
 ```javascript
-class App extends RootAppComponent {
+class SomeComponent extends AppComponent {
   // ...
 }
 ```
 
-To initialize appState, you should set `appState` either as an instance property
-or in the constructor, just as you would with `state`:
+Your component can access `this.appState` in `render()`, just like you would
+access `this.state`, and can call `this.setAppState` from within any event
+handlers, just like you would for `this.setState`
 
 ```javascript
-class App extends RootAppComponent {
+class SomeComponent extends AppComponent {
 
-  state = {};
-  appState = { someProperty: 0 };
-
-  // or:
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.appState = { someProperty: 0 };
+  render() {
+    return (
+      <input
+        type="button"
+        value={"clicked " + this.appState.buttonClickedCount + " times"}
+        onClick={() => this.setAppState({
+          buttonClickedCount: this.appState.buttonClickedCount + 1,
+        })}
+      />
+    );
   }
 }
 ```
@@ -67,12 +69,6 @@ completed merging `update` into `appState`.
 
 For library usecases: specify a non-default context for containing `appState`. See
 [using Amorphous in a library](using-amorphous-in-a-library.md) for more details.
-
-#### `static getDerivedAppState(appState)`
-
-Calculate computed values on appState. This is called for every `appState` update,
-and is merged shallowly into `appState`. See
-[lifecycle methods](lifecycle-methods.md) for more details and examples.
 
 #### `shouldComponentUpdate(nextProps, nextState, nextAppState)`
 

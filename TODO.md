@@ -1,3 +1,5 @@
+Code:
+
 - [x] call all methods on self
 - [x] try/finally
 - [x] full react api support
@@ -14,3 +16,8 @@
 - [ ] add PureAppComponent to help fix the optimization story
 - [ ] tests for multi-component system
 - [ ] tests for library context
+
+Docs:
+
+- [ ] Move appState, setAppState, lifecycle methods, etc to the root docs level to make
+      it more DRY and easier to scan/search
