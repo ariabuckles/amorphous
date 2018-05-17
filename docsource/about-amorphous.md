@@ -1,4 +1,4 @@
-# Amorphous
+# About Amorphous
 
 [![version](https://img.shields.io/npm/v/amorphous.svg)][npm-package]
 [![license](https://img.shields.io/github/license/ariabuckles/amorphous.svg)][LICENSE]
@@ -33,7 +33,7 @@ Amorphous is designed to:
  * get your app's state management working as quickly as possible
  * avoid unnecessary pitfalls while doing so
 
-## Usage
+### Usage
 
 Amorphous has two main classes:
 
@@ -51,7 +51,7 @@ Both `AppComponent` and `RootAppComponent` have access to:
  * `shouldComponentUpdate(nextProps, nextState, appState)`
  * `componentDidUpdate(nextProps, nextState, snapshot, appState)`
 
-## Full Example:
+### Full Example:
 
 ```javascript
 import { AppComponent, RootAppComponent } from 'amorphous';

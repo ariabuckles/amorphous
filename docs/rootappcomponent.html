@@ -60,7 +60,7 @@
     <link rel="next" href="appcomponent.html" />
     
     
-    <link rel="prev" href="getting-started.html" />
+    <link rel="prev" href="api.html" />
     
 
     </head>
@@ -94,7 +94,7 @@
                 <a href="./">
             
                     
-                    Amorphous
+                    About Amorphous
             
                 </a>
             
@@ -115,7 +115,21 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3" data-path="rootappcomponent.html">
+        <li class="chapter " data-level="1.3" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.1" data-path="rootappcomponent.html">
             
                 <a href="rootappcomponent.html">
             
@@ -128,7 +142,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="appcomponent.html">
+        <li class="chapter " data-level="1.3.2" data-path="appcomponent.html">
             
                 <a href="appcomponent.html">
             
@@ -141,12 +155,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="lifecycle-methods.html">
+        <li class="chapter " data-level="1.3.3" data-path="this.appstate.html">
             
-                <a href="lifecycle-methods.html">
+                <a href="this.appstate.html">
             
                     
-                    Lifecycle Methods
+                    this.appState
             
                 </a>
             
@@ -154,7 +168,64 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="using-amorphous-in-a-library.html">
+        <li class="chapter " data-level="1.3.4" data-path="this.setappstate.html">
+            
+                <a href="this.setappstate.html">
+            
+                    
+                    this.setAppState
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="shouldcomponentupdate.html">
+            
+                <a href="shouldcomponentupdate.html">
+            
+                    
+                    shouldComponentUpdate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="componentdidupdate.html">
+            
+                <a href="componentdidupdate.html">
+            
+                    
+                    componentDidUpdate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="getderivedappstate.html">
+            
+                <a href="getderivedappstate.html">
+            
+                    
+                    getDerivedAppState
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="using-amorphous-in-a-library.html">
             
                 <a href="using-amorphous-in-a-library.html">
             
@@ -167,7 +238,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="flow-types.html">
+        <li class="chapter " data-level="1.5" data-path="flow-types.html">
             
                 <a href="flow-types.html">
             
@@ -225,7 +296,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="rootappcomponent">RootAppComponent</h1>
+                                <h2 id="rootappcomponent">RootAppComponent</h2>
 <p><code>RootAppComponent</code> creates a new appState, and should be extended by your
 app&apos;s root component. Any <code>AppComponent</code> must be a descendent of a
 <code>RootAppComponent</code> (that is, all <code>AppComponent</code>s must have a <code>RootAppComponent</code>
@@ -257,44 +328,11 @@ or in the constructor, just as you would with <code>state</code>:</p>
 <h4 id="thisappstate"><code>this.appState</code></h4>
 <p>Initialize or access <code>appState</code>. <code>this.appState</code> should be initialized in your root
 component&apos;s constructor (or via <code>appState =</code> inside the class body).</p>
-<h4 id="thissetappstateupdate-callback"><code>this.setAppState(update, callback)</code></h4>
-<p>Like <a href="https://reactjs.org/docs/react-component.html#setstate" target="_blank"><code>this.setState</code></a> but for app state instead of component state.</p>
-<p><code>update</code> may be an object or a function.</p>
-<p><strong>If <code>update</code> is an object:</strong></p>
-<ul>
-<li><code>setAppState</code> will merge <code>update</code> into <code>this.appState</code></li>
-</ul>
-<p><strong>If <code>update</code> is a function:</strong></p>
-<ul>
-<li><code>update</code> must have the form <code>(prevAppState) =&gt; newAppState</code></li>
-<li><code>setAppState</code> will call <code>update</code> with the current appState value, and will
-merge the returned <code>newAppState</code> value into <code>appState</code>.</li>
-</ul>
-<p><code>setAppState</code> is not synchronous, and will call <code>callback</code> after it has
-completed merging <code>update</code> into <code>appState</code>.</p>
-<h4 id="thisappstatecontext"><code>this.appStateContext</code></h4>
-<p>For library usecases: specify a non-default context for containing <code>appState</code>. See
-<a href="using-amorphous-in-a-library.html">using Amorphous in a library</a> for more details.</p>
-<h4 id="static-getderivedappstateappstate"><code>static getDerivedAppState(appState)</code></h4>
-<p>Calculate computed values on appState. This is called for every <code>appState</code> update,
-and is merged shallowly into <code>appState</code>. See
-<a href="lifecycle-methods.html">lifecycle methods</a> for more details and examples.</p>
-<h4 id="shouldcomponentupdatenextprops-nextstate-nextappstate"><code>shouldComponentUpdate(nextProps, nextState, nextAppState)</code></h4>
-<p>Amorphous AppComponents and RootAppComponents provide a third parameter to
-<a href="https://reactjs.org/docs/react-component.html#shouldcomponentupdate" target="_blank">shouldComponentUpdate</a>: <code>nextAppState</code>, which indicates
-the next value of <code>appState</code>, so that components may avoid rendering if none
-of their dependent props/state/appState have changed. See
-<a href="lifecycle-methods.html">lifecycle methods</a> for more details and examples.</p>
-<h4 id="componentdidupdateprevprops-prevstate-snapshot-prevappstate"><code>componentDidUpdate(prevProps, prevState, snapshot, prevAppState)</code></h4>
-<p>Amorphous AppComponents and RootAppComponents provide a fourth parameter to
-<a href="https://reactjs.org/docs/react-component.html#componentdidupdate" target="_blank">componentDidUpdate</a>: <code>prevAppState</code>, which holds
-the value of <code>appState</code> before the most recent render, and may be useful
-for comparing with the new <code>this.appState</code> value to perform non-react
-updates after the component has rendered. See
-<a href="lifecycle-methods.html">lifecycle methods</a> for more details and examples.</p>
-<p><em>Note: <code>snapshot</code> is the return value of
-<a href="https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate" target="_blank"><code>getSnapshotBeforeUpdate()</code></a>, or <code>undefined</code>
-if no <code>getSnapshotBeforeUpdate()</code> is specified.</em></p>
+<h4 id="thissetappstateupdate-callback"><a href="this.setappstate.html"><code>this.setAppState(update, callback)</code></a></h4>
+<h4 id="thisappstatecontext"><a href="using-amorphous-in-a-library.html"><code>this.appStateContext</code></a></h4>
+<h4 id="shouldcomponentupdatenextprops-nextstate-nextappstate"><a href="shouldcomponentupdate.html"><code>shouldComponentUpdate(nextProps, nextState, nextAppState)</code></a></h4>
+<h4 id="componentdidupdateprevprops-prevstate-snapshot-prevappstate"><a href="componentdidupdate.html"><code>componentDidUpdate(prevProps, prevState, snapshot, prevAppState)</code></a></h4>
+<h4 id="and-all-reactcomponent-methods">And all <a href="https://reactjs.org/docs/react-component.html" target="_blank">React.Component methods</a></h4>
 
                                 
                                 </section>
@@ -322,7 +360,7 @@ if no <code>getSnapshotBeforeUpdate()</code> is specified.</em></p>
 
             
                 
-                <a href="getting-started.html" class="navigation navigation-prev " aria-label="Previous page: Getting started">
+                <a href="api.html" class="navigation navigation-prev " aria-label="Previous page: API">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -338,7 +376,7 @@ if no <code>getSnapshotBeforeUpdate()</code> is specified.</em></p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"RootAppComponent","level":"1.3","depth":1,"next":{"title":"AppComponent","level":"1.4","depth":1,"path":"appcomponent.md","ref":"appcomponent.md","articles":[]},"previous":{"title":"Getting started","level":"1.2","depth":1,"path":"getting-started.md","ref":"getting-started.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"rootappcomponent.md","mtime":"2018-05-17T05:10:38.289Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T05:10:43.730Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"RootAppComponent","level":"1.3.1","depth":2,"next":{"title":"AppComponent","level":"1.3.2","depth":2,"path":"appcomponent.md","ref":"appcomponent.md","articles":[]},"previous":{"title":"API","level":"1.3","depth":1,"path":"api.md","ref":"api.md","articles":[{"title":"RootAppComponent","level":"1.3.1","depth":2,"path":"rootappcomponent.md","ref":"rootappcomponent.md","articles":[]},{"title":"AppComponent","level":"1.3.2","depth":2,"path":"appcomponent.md","ref":"appcomponent.md","articles":[]},{"title":"this.appState","level":"1.3.3","depth":2,"path":"this.appstate.md","ref":"this.appstate.md","articles":[]},{"title":"this.setAppState","level":"1.3.4","depth":2,"path":"this.setappstate.md","ref":"this.setappstate.md","articles":[]},{"title":"shouldComponentUpdate","level":"1.3.5","depth":2,"path":"shouldcomponentupdate.md","ref":"shouldcomponentupdate.md","articles":[]},{"title":"componentDidUpdate","level":"1.3.6","depth":2,"path":"componentdidupdate.md","ref":"componentdidupdate.md","articles":[]},{"title":"getDerivedAppState","level":"1.3.7","depth":2,"path":"getderivedappstate.md","ref":"getderivedappstate.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"about-amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"rootappcomponent.md","mtime":"2018-05-17T21:55:01.142Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T21:55:08.356Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

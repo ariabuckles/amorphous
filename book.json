@@ -3,7 +3,7 @@
     "summary": "React state management, without the new concepts.",
     "root": "./docsource",
     "structure": {
-        "readme": "amorphous.md",
+        "readme": "about-amorphous.md",
         "summary": "table-of-contents.md"
     },
     "plugins": [

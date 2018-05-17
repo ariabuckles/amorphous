@@ -60,7 +60,7 @@
     <link rel="next" href="flow-types.html" />
     
     
-    <link rel="prev" href="lifecycle-methods.html" />
+    <link rel="prev" href="getderivedappstate.html" />
     
 
     </head>
@@ -94,7 +94,7 @@
                 <a href="./">
             
                     
-                    Amorphous
+                    About Amorphous
             
                 </a>
             
@@ -115,7 +115,21 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="rootappcomponent.html">
+        <li class="chapter " data-level="1.3" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="rootappcomponent.html">
             
                 <a href="rootappcomponent.html">
             
@@ -128,7 +142,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="appcomponent.html">
+        <li class="chapter " data-level="1.3.2" data-path="appcomponent.html">
             
                 <a href="appcomponent.html">
             
@@ -141,12 +155,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="lifecycle-methods.html">
+        <li class="chapter " data-level="1.3.3" data-path="this.appstate.html">
             
-                <a href="lifecycle-methods.html">
+                <a href="this.appstate.html">
             
                     
-                    Lifecycle Methods
+                    this.appState
             
                 </a>
             
@@ -154,7 +168,64 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6" data-path="using-amorphous-in-a-library.html">
+        <li class="chapter " data-level="1.3.4" data-path="this.setappstate.html">
+            
+                <a href="this.setappstate.html">
+            
+                    
+                    this.setAppState
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="shouldcomponentupdate.html">
+            
+                <a href="shouldcomponentupdate.html">
+            
+                    
+                    shouldComponentUpdate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="componentdidupdate.html">
+            
+                <a href="componentdidupdate.html">
+            
+                    
+                    componentDidUpdate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="getderivedappstate.html">
+            
+                <a href="getderivedappstate.html">
+            
+                    
+                    getDerivedAppState
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="using-amorphous-in-a-library.html">
             
                 <a href="using-amorphous-in-a-library.html">
             
@@ -167,7 +238,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="flow-types.html">
+        <li class="chapter " data-level="1.5" data-path="flow-types.html">
             
                 <a href="flow-types.html">
             
@@ -251,7 +322,7 @@ components:</p>
 </code></pre>
 <p>To make this less reduntant, I suggest making your own RootAppComponent and
 AppComponent classes for your library with extension:</p>
-<h2 id="making-amorphous-classes-for-your-library">Making Amorphous classes for your library</h2>
+<h3 id="making-amorphous-classes-for-your-library">Making Amorphous classes for your library</h3>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { AppComponent, RootAppComponent, createAppStateContext } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;amorphous&apos;</span>;
 
 <span class="hljs-keyword">const</span> MyAppStateContext = createAppStateContext();
@@ -293,7 +364,7 @@ exports.</p>
 
             
                 
-                <a href="lifecycle-methods.html" class="navigation navigation-prev " aria-label="Previous page: Lifecycle Methods">
+                <a href="getderivedappstate.html" class="navigation navigation-prev " aria-label="Previous page: getDerivedAppState">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -309,7 +380,7 @@ exports.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Using Amorphous in a Library","level":"1.6","depth":1,"next":{"title":"Flow Types","level":"1.7","depth":1,"path":"flow-types.md","ref":"flow-types.md","articles":[]},"previous":{"title":"Lifecycle Methods","level":"1.5","depth":1,"path":"lifecycle-methods.md","ref":"lifecycle-methods.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"using-amorphous-in-a-library.md","mtime":"2018-05-17T05:10:38.291Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T05:10:43.730Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Using Amorphous in a Library","level":"1.4","depth":1,"next":{"title":"Flow Types","level":"1.5","depth":1,"path":"flow-types.md","ref":"flow-types.md","articles":[]},"previous":{"title":"getDerivedAppState","level":"1.3.7","depth":2,"path":"getderivedappstate.md","ref":"getderivedappstate.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"about-amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"using-amorphous-in-a-library.md","mtime":"2018-05-17T21:55:01.146Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T21:55:08.356Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

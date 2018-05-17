@@ -1,6 +1,4 @@
-# Lifecycle Methods
-
-## React Lifecycle
+## shouldComponentUpdate
 
 Amorphous provides this.appState and this.setAppState during and after
 your component's first render. They are not accessible in the constructor.
@@ -14,12 +12,13 @@ React lifecycle methods:
 You may use either of these methods to monitor changes to `appState`
 and update your `AppComponent` properly, just like you would for `state`.
 
-## `static getDerivedAppState(appState)`
+Amorphous AppComponents and RootAppComponents provide a third parameter to
+[shouldComponentUpdate][shouldComponentUpdate]: `nextAppState`, which indicates
+the next value of `appState`, so that components may avoid rendering if none
+of their dependent props/state/appState have changed. See
+[lifecycle methods](lifecycle-methods.md) for more details and examples.
 
-Similar to `getDerivedStateFromProps`, Amorphous supports a static
-`getDerivedAppState` method on the `RootAppComponent` only. This
-function may be used to trigger additional modifications of appState
-when appState is modified, which can be useful for caching expensive
-calculations or time-unique values.
+[shouldComponentUpdate]: https://reactjs.org/docs/react-component.html#shouldcomponentupdate
+
 
 

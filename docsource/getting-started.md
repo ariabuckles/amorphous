@@ -58,4 +58,3 @@ class Input extends AppComponent {
 
 And you're ready to send shared state to anywhere your app needs it!
 
-

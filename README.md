@@ -1,4 +1,4 @@
-# Amorphous
+# About Amorphous
 
 [![version](https://img.shields.io/npm/v/amorphous.svg)][npm-package]
 [![license](https://img.shields.io/github/license/ariabuckles/amorphous.svg)][LICENSE]
@@ -33,7 +33,7 @@ Amorphous is designed to:
  * get your app's state management working as quickly as possible
  * avoid unnecessary pitfalls while doing so
 
-## Usage
+### Usage
 
 Amorphous has two main classes:
 
@@ -51,7 +51,7 @@ Both `AppComponent` and `RootAppComponent` have access to:
  * `shouldComponentUpdate(nextProps, nextState, appState)`
  * `componentDidUpdate(nextProps, nextState, snapshot, appState)`
 
-## Full Example:
+### Full Example:
 
 ```javascript
 import { AppComponent, RootAppComponent } from 'amorphous';
@@ -155,8 +155,17 @@ class Input extends AppComponent {
 
 And you're ready to send shared state to anywhere your app needs it!
 
+# API
 
-# RootAppComponent
+ * [RootAppComponent](rootappcomponent.md)
+ * [AppComponent](appcomponent.md)
+ * [this.appState](this.appstate.md)
+ * [this.setAppState](this.setappstate.md)
+ * [shouldComponentUpdate](shouldcomponentupdate.md)
+ * [componentDidUpdate](componentdidupdate.md)
+ * [this.appStateContext](using-amorphous-in-a-library.md)
+
+## RootAppComponent
 
 `RootAppComponent` creates a new appState, and should be extended by your
 app's root component. Any `AppComponent` must be a descendent of a
@@ -200,66 +209,17 @@ class App extends RootAppComponent {
 Initialize or access `appState`. `this.appState` should be initialized in your root
 component's constructor (or via `appState =` inside the class body).
 
-#### `this.setAppState(update, callback)`
+#### [`this.setAppState(update, callback)`](this.setappstate.md)
 
-Like [`this.setState`][setState] but for app state instead of component state.
+#### [`this.appStateContext`](using-amorphous-in-a-library.md)
 
-[setState]: https://reactjs.org/docs/react-component.html#setstate
+#### [`shouldComponentUpdate(nextProps, nextState, nextAppState)`](shouldcomponentupdate.md)
 
-`update` may be an object or a function.
+#### [`componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`](componentdidupdate.md)
 
-**If `update` is an object:**
+#### And all [React.Component methods](https://reactjs.org/docs/react-component.html)
 
- * `setAppState` will merge `update` into `this.appState`
-
-**If `update` is a function:**
-
- * `update` must have the form `(prevAppState) => newAppState`
- * `setAppState` will call `update` with the current appState value, and will
-   merge the returned `newAppState` value into `appState`.
-
-`setAppState` is not synchronous, and will call `callback` after it has
-completed merging `update` into `appState`.
-
-#### `this.appStateContext`
-
-For library usecases: specify a non-default context for containing `appState`. See
-[using Amorphous in a library](using-amorphous-in-a-library.md) for more details.
-
-#### `static getDerivedAppState(appState)`
-
-Calculate computed values on appState. This is called for every `appState` update,
-and is merged shallowly into `appState`. See
-[lifecycle methods](lifecycle-methods.md) for more details and examples.
-
-#### `shouldComponentUpdate(nextProps, nextState, nextAppState)`
-
-Amorphous AppComponents and RootAppComponents provide a third parameter to
-[shouldComponentUpdate][shouldComponentUpdate]: `nextAppState`, which indicates
-the next value of `appState`, so that components may avoid rendering if none
-of their dependent props/state/appState have changed. See
-[lifecycle methods](lifecycle-methods.md) for more details and examples.
-
-[shouldComponentUpdate]: https://reactjs.org/docs/react-component.html#shouldcomponentupdate
-
-#### `componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`
-
-Amorphous AppComponents and RootAppComponents provide a fourth parameter to
-[componentDidUpdate][componentDidUpdate]: `prevAppState`, which holds
-the value of `appState` before the most recent render, and may be useful
-for comparing with the new `this.appState` value to perform non-react
-updates after the component has rendered. See
-[lifecycle methods](lifecycle-methods.md) for more details and examples.
-
-*Note: `snapshot` is the return value of
-[`getSnapshotBeforeUpdate()`][getSnapshotBeforeUpdate], or `undefined`
-if no `getSnapshotBeforeUpdate()` is specified.*
-
-[componentDidUpdate]: https://reactjs.org/docs/react-component.html#componentdidupdate
-[getSnapshotBeforeUpdate]: https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate
-
-
-# AppComponent
+## AppComponent
 
 `AppComponent` is a replacement for `React.Component` for any component that
 needs access to `appState`. Any `AppComponent` must be a descendent of a
@@ -302,10 +262,25 @@ class SomeComponent extends AppComponent {
 
 #### `this.appState`
 
-Initialize or access `appState`. `this.appState` should be initialized in your root
+Access `appState`. `this.appState` should be initialized in your root
 component's constructor (or via `appState =` inside the class body).
 
-#### `this.setAppState(update, callback)`
+#### [`this.setAppState(update, callback)`](this.setappstate.md)
+
+#### [`this.appStateContext`](using-amorphous-in-a-library.md)
+
+#### [`shouldComponentUpdate(nextProps, nextState, nextAppState)`](shouldcomponentupdate.md)
+
+#### [`componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`](componentdidupdate.md)
+
+#### And all [React.Component methods](https://reactjs.org/docs/react-component.html)
+
+## this.appState
+
+
+## this.setAppState
+
+### `this.setAppState(update, callback)`
 
 Like [`this.setState`][setState] but for app state instead of component state.
 
@@ -326,12 +301,21 @@ Like [`this.setState`][setState] but for app state instead of component state.
 `setAppState` is not synchronous, and will call `callback` after it has
 completed merging `update` into `appState`.
 
-#### `this.appStateContext`
 
-For library usecases: specify a non-default context for containing `appState`. See
-[using Amorphous in a library](using-amorphous-in-a-library.md) for more details.
 
-#### `shouldComponentUpdate(nextProps, nextState, nextAppState)`
+## shouldComponentUpdate
+
+Amorphous provides this.appState and this.setAppState during and after
+your component's first render. They are not accessible in the constructor.
+
+Additionally, Amorphous provides an `appState` parameter for the following
+React lifecycle methods:
+
+ * `shouldComponentUpdate(nextProps, nextState, nextAppState)`
+ * `componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`
+
+You may use either of these methods to monitor changes to `appState`
+and update your `AppComponent` properly, just like you would for `state`.
 
 Amorphous AppComponents and RootAppComponents provide a third parameter to
 [shouldComponentUpdate][shouldComponentUpdate]: `nextAppState`, which indicates
@@ -341,7 +325,21 @@ of their dependent props/state/appState have changed. See
 
 [shouldComponentUpdate]: https://reactjs.org/docs/react-component.html#shouldcomponentupdate
 
-#### `componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`
+
+
+## componentDidUpdate
+
+Amorphous provides this.appState and this.setAppState during and after
+your component's first render. They are not accessible in the constructor.
+
+Additionally, Amorphous provides an `appState` parameter for the following
+React lifecycle methods:
+
+ * `shouldComponentUpdate(nextProps, nextState, nextAppState)`
+ * `componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`
+
+You may use either of these methods to monitor changes to `appState`
+and update your `AppComponent` properly, just like you would for `state`.
 
 Amorphous AppComponents and RootAppComponents provide a fourth parameter to
 [componentDidUpdate][componentDidUpdate]: `prevAppState`, which holds
@@ -358,29 +356,22 @@ if no `getSnapshotBeforeUpdate()` is specified.*
 [getSnapshotBeforeUpdate]: https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate
 
 
-# Lifecycle Methods
 
-## React Lifecycle
+## getDerivedAppState
 
-Amorphous provides this.appState and this.setAppState during and after
-your component's first render. They are not accessible in the constructor.
-
-Additionally, Amorphous provides an `appState` parameter for the following
-React lifecycle methods:
-
- * `shouldComponentUpdate(nextProps, nextState, nextAppState)`
- * `componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`
-
-You may use either of these methods to monitor changes to `appState`
-and update your `AppComponent` properly, just like you would for `state`.
-
-## `static getDerivedAppState(appState)`
+### `static getDerivedAppState(appState)`
 
 Similar to `getDerivedStateFromProps`, Amorphous supports a static
 `getDerivedAppState` method on the `RootAppComponent` only. This
 function may be used to trigger additional modifications of appState
 when appState is modified, which can be useful for caching expensive
 calculations or time-unique values.
+
+Example:
+
+```javascript
+
+```
 
 
 # Using Amorphous in a Library
@@ -419,7 +410,7 @@ To make this less reduntant, I suggest making your own RootAppComponent and
 AppComponent classes for your library with extension:
 
 
-## Making Amorphous classes for your library
+### Making Amorphous classes for your library
 
 ```javascript
 import { AppComponent, RootAppComponent, createAppStateContext } from 'amorphous';

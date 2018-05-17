@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Lifecycle Methods · Amorphous</title>
+        <title>this.appState · Amorphous</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="using-amorphous-in-a-library.html" />
+    <link rel="next" href="this.setappstate.html" />
     
     
     <link rel="prev" href="appcomponent.html" />
@@ -94,7 +94,7 @@
                 <a href="./">
             
                     
-                    Amorphous
+                    About Amorphous
             
                 </a>
             
@@ -115,7 +115,21 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="rootappcomponent.html">
+        <li class="chapter " data-level="1.3" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="rootappcomponent.html">
             
                 <a href="rootappcomponent.html">
             
@@ -128,7 +142,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="appcomponent.html">
+        <li class="chapter " data-level="1.3.2" data-path="appcomponent.html">
             
                 <a href="appcomponent.html">
             
@@ -141,12 +155,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5" data-path="lifecycle-methods.html">
+        <li class="chapter active" data-level="1.3.3" data-path="this.appstate.html">
             
-                <a href="lifecycle-methods.html">
+                <a href="this.appstate.html">
             
                     
-                    Lifecycle Methods
+                    this.appState
             
                 </a>
             
@@ -154,7 +168,64 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="using-amorphous-in-a-library.html">
+        <li class="chapter " data-level="1.3.4" data-path="this.setappstate.html">
+            
+                <a href="this.setappstate.html">
+            
+                    
+                    this.setAppState
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="shouldcomponentupdate.html">
+            
+                <a href="shouldcomponentupdate.html">
+            
+                    
+                    shouldComponentUpdate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="componentdidupdate.html">
+            
+                <a href="componentdidupdate.html">
+            
+                    
+                    componentDidUpdate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="getderivedappstate.html">
+            
+                <a href="getderivedappstate.html">
+            
+                    
+                    getDerivedAppState
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="using-amorphous-in-a-library.html">
             
                 <a href="using-amorphous-in-a-library.html">
             
@@ -167,7 +238,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="flow-types.html">
+        <li class="chapter " data-level="1.5" data-path="flow-types.html">
             
                 <a href="flow-types.html">
             
@@ -210,7 +281,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Lifecycle Methods</a>
+        <a href="." >this.appState</a>
     </h1>
 </div>
 
@@ -225,24 +296,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="lifecycle-methods">Lifecycle Methods</h1>
-<h2 id="react-lifecycle">React Lifecycle</h2>
-<p>Amorphous provides this.appState and this.setAppState during and after
-your component&apos;s first render. They are not accessible in the constructor.</p>
-<p>Additionally, Amorphous provides an <code>appState</code> parameter for the following
-React lifecycle methods:</p>
-<ul>
-<li><code>shouldComponentUpdate(nextProps, nextState, nextAppState)</code></li>
-<li><code>componentDidUpdate(prevProps, prevState, snapshot, prevAppState)</code></li>
-</ul>
-<p>You may use either of these methods to monitor changes to <code>appState</code>
-and update your <code>AppComponent</code> properly, just like you would for <code>state</code>.</p>
-<h2 id="static-getderivedappstateappstate"><code>static getDerivedAppState(appState)</code></h2>
-<p>Similar to <code>getDerivedStateFromProps</code>, Amorphous supports a static
-<code>getDerivedAppState</code> method on the <code>RootAppComponent</code> only. This
-function may be used to trigger additional modifications of appState
-when appState is modified, which can be useful for caching expensive
-calculations or time-unique values.</p>
+                                <h2 id="thisappstate">this.appState</h2>
 
                                 
                                 </section>
@@ -275,7 +329,7 @@ calculations or time-unique values.</p>
                 </a>
                 
                 
-                <a href="using-amorphous-in-a-library.html" class="navigation navigation-next " aria-label="Next page: Using Amorphous in a Library">
+                <a href="this.setappstate.html" class="navigation navigation-next " aria-label="Next page: this.setAppState">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -286,7 +340,7 @@ calculations or time-unique values.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Lifecycle Methods","level":"1.5","depth":1,"next":{"title":"Using Amorphous in a Library","level":"1.6","depth":1,"path":"using-amorphous-in-a-library.md","ref":"using-amorphous-in-a-library.md","articles":[]},"previous":{"title":"AppComponent","level":"1.4","depth":1,"path":"appcomponent.md","ref":"appcomponent.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"lifecycle-methods.md","mtime":"2018-05-17T05:10:38.290Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T05:10:43.730Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"this.appState","level":"1.3.3","depth":2,"next":{"title":"this.setAppState","level":"1.3.4","depth":2,"path":"this.setappstate.md","ref":"this.setappstate.md","articles":[]},"previous":{"title":"AppComponent","level":"1.3.2","depth":2,"path":"appcomponent.md","ref":"appcomponent.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"about-amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"this.appstate.md","mtime":"2018-05-17T21:55:01.144Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T21:55:08.356Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

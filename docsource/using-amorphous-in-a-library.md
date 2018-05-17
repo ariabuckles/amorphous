@@ -34,7 +34,7 @@ To make this less reduntant, I suggest making your own RootAppComponent and
 AppComponent classes for your library with extension:
 
 
-## Making Amorphous classes for your library
+### Making Amorphous classes for your library
 
 ```javascript
 import { AppComponent, RootAppComponent, createAppStateContext } from 'amorphous';
