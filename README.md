@@ -42,7 +42,7 @@ Amorphous has two main classes:
 
 To use `AppComponent`, you must have a `RootAppComponent` at the
 root of your app. (For library authors, see
-[using Amorphous in a library][library.md].)
+[using Amorphous in a library](using-amorphous-in-a-library.md).)
 
 Both `AppComponent` and `RootAppComponent` have access to:
 
@@ -51,7 +51,7 @@ Both `AppComponent` and `RootAppComponent` have access to:
  * `shouldComponentUpdate(nextProps, nextState, appState)`
  * `componentDidUpdate(nextProps, nextState, snapshot, appState)`
 
-
+## Full Example:
 
 ```javascript
 import { AppComponent, RootAppComponent } from './amorphous';
@@ -179,6 +179,62 @@ Similar to `getDerivedStateFromProps`, Amorphous supports a static
 function may be used to trigger additional modifications of appState
 when appState is modified, which can be useful for caching expensive
 calculations or time-unique values.
+
+
+# Using Amorphous in a Library
+
+If you are a library author using Amorphous, it is important to make
+sure your library's appState does not conflict with the client's appState.
+
+Amorphous uses React context to control which components have access
+to which appStates. To make a new context for your library, use:
+
+```javascript
+import { createAppStateContext } from './amorphous';
+
+const MyAppStateContext = createAppStateContext();
+```
+
+Then, to specify that your components use `MyAppStateContext` instead of
+the default appState context, set the `appStateContext` property on those
+components:
+
+```javascript
+class MyApp extends RootAppComponent {
+  appStateContext = MyAppStateContext;
+
+  // ...
+}
+
+class MyComponent extends AppComponent {
+  appStateContext = MyAppStateContext;
+
+  // ...
+}
+```
+
+To make this less reduntant, I suggest making your own RootAppComponent and
+AppComponent classes for your library with extension:
+
+
+## Making Amorphous classes for your library
+
+```javascript
+import { AppComponent, RootAppComponent, createAppStateContext } from './amorphous';
+
+const MyAppStateContext = createAppStateContext();
+
+export class MyAppComponent extends AppComponent {
+  appStateContext = MyAppStateContext;
+}
+export class MyRootAppComponent extends RootAppComponent {
+  appStateContext = MyAppStateContext;
+}
+```
+
+Then everywhere you would use `AppComponent` or `RootAppComponent`, you
+can instead use `MyAppComponent` or `MyRootAppComponent` from that file's
+exports.
 
 
 # Higher Order Components

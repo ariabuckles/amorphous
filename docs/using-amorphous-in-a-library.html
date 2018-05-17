@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Getting started · Amorphous</title>
+        <title>Using Amorphous in a Library · Amorphous</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="lifecycle-methods.html" />
+    <link rel="next" href="higher-order-components.html" />
     
     
-    <link rel="prev" href="./" />
+    <link rel="prev" href="lifecycle-methods.html" />
     
 
     </head>
@@ -102,7 +102,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="getting-started.html">
+        <li class="chapter " data-level="1.2" data-path="getting-started.html">
             
                 <a href="getting-started.html">
             
@@ -128,7 +128,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="using-amorphous-in-a-library.html">
+        <li class="chapter active" data-level="1.4" data-path="using-amorphous-in-a-library.html">
             
                 <a href="using-amorphous-in-a-library.html">
             
@@ -184,7 +184,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Getting started</a>
+        <a href="." >Using Amorphous in a Library</a>
     </h1>
 </div>
 
@@ -199,45 +199,47 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="getting-started">Getting started</h1>
-<p>First, install Amorphous by running:</p>
-<pre><code>npm install amorphous
-</code></pre><p>Then, you can import <code>AppComponent</code> and <code>RootAppComponent</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { AppComponent, RootAppComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;amorphous&apos;</span>;
+                                <h1 id="using-amorphous-in-a-library">Using Amorphous in a Library</h1>
+<p>If you are a library author using Amorphous, it is important to make
+sure your library&apos;s appState does not conflict with the client&apos;s appState.</p>
+<p>Amorphous uses React context to control which components have access
+to which appStates. To make a new context for your library, use:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { createAppStateContext } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./amorphous&apos;</span>;
+
+<span class="hljs-keyword">const</span> MyAppStateContext = createAppStateContext();
 </code></pre>
-<p>At the root of your application (or subtree), extend
-<code>RootAppComponent</code> instead of <code>React.Component</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RootAppComponent</span> </span>{
+<p>Then, to specify that your components use <code>MyAppStateContext</code> instead of
+the default appState context, set the <code>appStateContext</code> property on those
+components:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RootAppComponent</span> </span>{
+  appStateContext = MyAppStateContext;
+
+  <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppComponent</span> </span>{
+  appStateContext = MyAppStateContext;
+
   <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<p>And optionally initialize your appState:</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RootAppComponent</span> </span>{
-  <span class="hljs-keyword">constructor</span>(props) {
-    <span class="hljs-keyword">super</span>(props);
-    <span class="hljs-keyword">this</span>.appState = {text: <span class="hljs-string">&apos;hi&apos;</span>};
-  }
+<p>To make this less reduntant, I suggest making your own RootAppComponent and
+AppComponent classes for your library with extension:</p>
+<h2 id="making-amorphous-classes-for-your-library">Making Amorphous classes for your library</h2>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { AppComponent, RootAppComponent, createAppStateContext } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./amorphous&apos;</span>;
+
+<span class="hljs-keyword">const</span> MyAppStateContext = createAppStateContext();
+
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyAppComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppComponent</span> </span>{
+  appStateContext = MyAppStateContext;
+}
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyRootAppComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RootAppComponent</span> </span>{
+  appStateContext = MyAppStateContext;
 }
 </code></pre>
-<p>Then, in any component you want to access appState, extend <code>AppComponent</code>
-instead of <code>React.Component</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppComponent</span> </span>{
-  <span class="hljs-comment">// ...</span>
-}
-</code></pre>
-<p>Inside this component, you can access <code>this.appState</code> and update app state
-with <code>this.setAppState</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppComponent</span> </span>{
-  render() {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
-      <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span>
-      <span class="hljs-attr">value</span>=<span class="hljs-string">{this.appState.text}</span>
-      <span class="hljs-attr">onChange</span>=<span class="hljs-string">{e</span> =&gt;</span> this.setAppState({text: e.target.value})}
-    /&gt;;
-  }
-}
-</span></code></pre>
-<p>And you&apos;re ready to send shared state to anywhere your app needs it!</p>
+<p>Then everywhere you would use <code>AppComponent</code> or <code>RootAppComponent</code>, you
+can instead use <code>MyAppComponent</code> or <code>MyRootAppComponent</code> from that file&apos;s
+exports.</p>
 
                                 
                                 </section>
@@ -265,12 +267,12 @@ with <code>this.setAppState</code>:</p>
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Amorphous">
+                <a href="lifecycle-methods.html" class="navigation navigation-prev " aria-label="Previous page: Lifecycle Methods">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="lifecycle-methods.html" class="navigation navigation-next " aria-label="Next page: Lifecycle Methods">
+                <a href="higher-order-components.html" class="navigation navigation-next " aria-label="Next page: Higher Order Components">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -281,7 +283,7 @@ with <code>this.setAppState</code>:</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Getting started","level":"1.2","depth":1,"next":{"title":"Lifecycle Methods","level":"1.3","depth":1,"path":"lifecycle-methods.md","ref":"lifecycle-methods.md","articles":[]},"previous":{"title":"Amorphous","level":"1.1","depth":1,"path":"amorphous.md","ref":"amorphous.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"getting-started.md","mtime":"2018-05-17T00:58:37.259Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T00:58:38.158Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Using Amorphous in a Library","level":"1.4","depth":1,"next":{"title":"Higher Order Components","level":"1.5","depth":1,"path":"higher-order-components.md","ref":"higher-order-components.md","articles":[]},"previous":{"title":"Lifecycle Methods","level":"1.3","depth":1,"path":"lifecycle-methods.md","ref":"lifecycle-methods.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"using-amorphous-in-a-library.md","mtime":"2018-05-17T00:58:37.260Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T00:58:38.158Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

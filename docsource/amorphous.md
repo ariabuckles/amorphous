@@ -42,7 +42,7 @@ Amorphous has two main classes:
 
 To use `AppComponent`, you must have a `RootAppComponent` at the
 root of your app. (For library authors, see
-[using Amorphous in a library][library.md].)
+[using Amorphous in a library](using-amorphous-in-a-library.md).)
 
 Both `AppComponent` and `RootAppComponent` have access to:
 
@@ -51,7 +51,7 @@ Both `AppComponent` and `RootAppComponent` have access to:
  * `shouldComponentUpdate(nextProps, nextState, appState)`
  * `componentDidUpdate(nextProps, nextState, snapshot, appState)`
 
-
+## Full Example:
 
 ```javascript
 import { AppComponent, RootAppComponent } from './amorphous';
