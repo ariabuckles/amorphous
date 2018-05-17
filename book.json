@@ -1,8 +1,9 @@
 {
-    "title": "My Awesome Book",
+    "title": "Amorphous",
     "summary": "React state management, without the new concepts.",
+    "root": "./docsource",
     "structure": {
-        "readme": "docs/doc.0.md",
-        "summary": "docs/summary.md"
+        "readme": "doc.a.md",
+        "summary": "summary.md"
     }
 }

@@ -23,4 +23,3 @@ when appState is modified, which can be useful for caching expensive
 calculations or time-unique values.
 
 
-# Higher Order Components

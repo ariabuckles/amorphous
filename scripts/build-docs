@@ -1,14 +1,19 @@
 #!/bin/bash
+rm -rf docsource
+rm -rf docs
 mkdir -p temp/
-mkdir -p docs/
-rm -rf docs/*
+mkdir -p docsource/
 
-#split -p '^# ' -a 1 README.md docs/doc.
-csplit -k -f docs/doc. -n 1 README.md '/^# /' '{100}'
-ls docs | xargs -I% mv docs/% docs/%.md
+# gitbook doesn't like numbers in the name, so 'split' uses a-z :/,
+# while csplit uses 0-9
+split -p '^# ' -a 1 README.md docsource/doc.
+#csplit -k -f docs/doc. -n 1 README.md '/^# /' '{100}'
+ls docsource | xargs -I% mv docsource/% docsource/%.md
 
-ls docs > temp/docs.txt
+ls docsource > temp/docs.txt
 cat README.md | grep '^# ' | sed -e 's/# //' > temp/sections.txt
-paste temp/docs.txt temp/sections.txt | sed 's/^\([^[:blank:]]*\)[[:blank:]]\(.*\)/ * [\2](\1)/g' > docs/summary.md
+paste temp/docs.txt temp/sections.txt | sed 's|^\([^[:blank:]]*\)[[:blank:]]\(.*\)| * [\2](\1)|g' > docsource/summary.md
 
 rm -rf temp/
+
+./node_modules/.bin/gitbook build . docs
