@@ -1,6 +1,6 @@
-# Lifecycle Methods:
+# Lifecycle Methods
 
-## React Lifecycle:
+## React Lifecycle
 
 Amorphous provides this.appState and this.setAppState during and after
 your component's first render. They are not accessible in the constructor.

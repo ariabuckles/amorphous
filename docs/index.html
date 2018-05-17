@@ -118,7 +118,7 @@
                 <a href="doc.c.html">
             
                     
-                    Lifecycle Methods:
+                    Lifecycle Methods
             
                 </a>
             
@@ -189,15 +189,67 @@
 <a href="https://github.com/ariabuckles/amorphous/blob/master/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/ariabuckles/amorphous.svg" alt="license"></a>
 <a href="https://travis-ci.com/ariabuckles/amorphous" target="_blank"><img src="https://travis-ci.com/ariabuckles/amorphous.svg?branch=master" alt="build status"></a></p>
 <p>React state management, without the new concepts.</p>
+<p>Amorphous makes sharing state in react as easy as using <code>setState</code>.
+Just like <code>this.state</code> is a component&apos;s state and can be updated with
+<code>setState</code>, <code>this.appState</code> is an app&apos;s state, which can be updated with
+<code>this.setAppState</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppComponent</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+        <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{this.appState.text}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> this.setAppState({ text: e.target.value })}
+      /&gt;
+    );
+  }
+}
+</span></code></pre>
 <p>Amorphous is designed to help you get your app&apos;s state management up and
 running as quickly as possible while avoiding as many pitfalls as possible
 given the first constraint.</p>
-<p>Amorphous provides you with <code>this.appState</code> and <code>this.setAppState</code>, which
-work like <code>this.state</code> and <code>this.setState</code>, <em>but for your whole app (or
-library or subtree)</em>.</p>
 <p>Amorphous also provides you several tools to help avoid potential pitfalls,
 and uses React&apos;s new context API to prevent having actual globals that could
 poorly interact with third party code.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { AppComponent, RootAppComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./amorphous&apos;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppComponent</span> </span>{
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      &lt;input
+        type=&quot;text&quot;
+        value={this.appState.text || &apos;null&apos;}
+        onChange={(e) =&gt; this.setAppState({ text: e.target.value })}
+      /&gt;
+    );
+  }
+}
+
+class Output extends AppComponent {
+  render() {
+    return (
+      &lt;span&gt;
+        {&apos;You typed: &apos;}
+        {this.appState.text}
+      &lt;/span&gt;
+    );
+  }
+}
+
+class App extends RootAppComponent {
+  appState = { text: &apos;hi&apos; };
+
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;Input /&gt;
+        &lt;Output /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
 
                                 
                                 </section>
@@ -237,7 +289,7 @@ poorly interact with third party code.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Amorphous","level":"1.1","depth":1,"next":{"title":"Getting started","level":"1.2","depth":1,"path":"doc.b.md","ref":"doc.b.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"doc.a.md","glossary":"GLOSSARY.md","summary":"summary.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"doc.a.md","mtime":"2018-05-17T00:01:33.458Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T00:01:34.478Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Amorphous","level":"1.1","depth":1,"next":{"title":"Getting started","level":"1.2","depth":1,"path":"doc.b.md","ref":"doc.b.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"doc.a.md","glossary":"GLOSSARY.md","summary":"summary.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"doc.a.md","mtime":"2018-05-17T00:15:31.002Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-17T00:15:32.051Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
