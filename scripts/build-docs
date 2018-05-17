@@ -22,3 +22,4 @@ paste temp/files.txt temp/sections.txt | sed 's|^\([^[:blank:]]*\)[[:blank:]]\(.
 rm -rf temp/
 
 ./node_modules/.bin/gitbook build . docs
+echo "amorphous.js.org" > docs/CNAME
