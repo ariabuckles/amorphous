@@ -22,4 +22,3 @@ Like [`this.setState`][setState] but for app state instead of component state.
 completed merging `update` into `appState`.
 
 
-

@@ -27,4 +27,3 @@ if no `getSnapshotBeforeUpdate()` is specified.*
 [getSnapshotBeforeUpdate]: https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate
 
 
-

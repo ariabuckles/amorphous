@@ -277,6 +277,23 @@ component's constructor (or via `appState =` inside the class body).
 
 ## this.appState
 
+`appState` allows all AppComponents (including the RootAppComponent) to share
+state. It works similarly to `this.state`, but is shared across all AppComponents.
+
+In AppComponents, `this.appState` is accessible in all lifecycle methods, but
+not the constructor.
+
+In RootAppComponents, `this.appState` should be initialized in the constructor,
+and is thus available in all methods.
+
+AppState can be updated from any AppComponent or RootAppComponent using
+[`this.setAppState()`](this.setappstate.md).
+
+[`shouldComponentUpdate`](shouldcomponentupdate.md) and
+[`componentDidUpdate`](componentdidupdate.md) for AppComponents and RootAppComponents
+have an additional parameter so that components can compare `this.appState` to
+previous/next versions of `appState`.
+
 
 ## this.setAppState
 
@@ -302,7 +319,6 @@ Like [`this.setState`][setState] but for app state instead of component state.
 completed merging `update` into `appState`.
 
 
-
 ## shouldComponentUpdate
 
 Amorphous provides this.appState and this.setAppState during and after
@@ -324,7 +340,6 @@ of their dependent props/state/appState have changed. See
 [lifecycle methods](lifecycle-methods.md) for more details and examples.
 
 [shouldComponentUpdate]: https://reactjs.org/docs/react-component.html#shouldcomponentupdate
-
 
 
 ## componentDidUpdate
@@ -354,7 +369,6 @@ if no `getSnapshotBeforeUpdate()` is specified.*
 
 [componentDidUpdate]: https://reactjs.org/docs/react-component.html#componentdidupdate
 [getSnapshotBeforeUpdate]: https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate
-
 
 
 ## getDerivedAppState
