@@ -3,10 +3,12 @@
 [![version](https://img.shields.io/npm/v/amorphous.svg)][npm-package]
 [![license](https://img.shields.io/github/license/ariabuckles/amorphous.svg)][LICENSE]
 [![build status](https://travis-ci.com/ariabuckles/amorphous.svg?branch=master)][travis-ci]
+[![docs](https://img.shields.io/badge/docs-js.org-ff69b4.svg)][docs]
 
 [npm-package]: https://www.npmjs.com/package/amorphous
 [LICENSE]: https://github.com/ariabuckles/amorphous/blob/master/LICENSE
 [travis-ci]: https://travis-ci.com/ariabuckles/amorphous
+[docs]: https://amorphous.js.org
 
 Amorphous makes sharing state in react as easy as using `setState`.
 

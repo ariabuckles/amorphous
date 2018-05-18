@@ -9,4 +9,4 @@
     * [componentDidUpdate](componentdidupdate.md)
     * [getDerivedAppState](getderivedappstate.md)
  * [Using Amorphous in a Library](using-amorphous-in-a-library.md)
- * [Flow Types](flow-types.md)
+ * [Using Amorphous with Flow](using-amorphous-with-flow.md)

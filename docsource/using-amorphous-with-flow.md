@@ -1,8 +1,8 @@
-# Flow Types
+# Using Amorphous with Flow
 
 Amorphous has full support for [flow](https://flow.org) types.
 
-Here is the relevant type information for `RootAppComponent` and `AppComponent`:
+The relevant type information for `RootAppComponent` and `AppComponent` is:
 
 ```typescript
 class RootAppComponent<Props, State, AppState: Object>
@@ -42,6 +42,5 @@ class App extends RootAppComponent<Props, State, AppState> {
   }
 }
 ```
-
 
 

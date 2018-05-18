@@ -3,10 +3,12 @@
 [![version](https://img.shields.io/npm/v/amorphous.svg)][npm-package]
 [![license](https://img.shields.io/github/license/ariabuckles/amorphous.svg)][LICENSE]
 [![build status](https://travis-ci.com/ariabuckles/amorphous.svg?branch=master)][travis-ci]
+[![docs](https://img.shields.io/badge/docs-js.org-ff69b4.svg)][docs]
 
 [npm-package]: https://www.npmjs.com/package/amorphous
 [LICENSE]: https://github.com/ariabuckles/amorphous/blob/master/LICENSE
 [travis-ci]: https://travis-ci.com/ariabuckles/amorphous
+[docs]: https://amorphous.js.org
 
 Amorphous makes sharing state in react as easy as using `setState`.
 
@@ -443,11 +445,11 @@ Then everywhere you would use `AppComponent` or `RootAppComponent`, you
 can instead use `MyAppComponent` or `MyRootAppComponent` from that file's
 exports.
 
-# Flow Types
+# Using Amorphous with Flow
 
 Amorphous has full support for [flow](https://flow.org) types.
 
-Here is the relevant type information for `RootAppComponent` and `AppComponent`:
+The relevant type information for `RootAppComponent` and `AppComponent` is:
 
 ```typescript
 class RootAppComponent<Props, State, AppState: Object>
@@ -487,6 +489,5 @@ class App extends RootAppComponent<Props, State, AppState> {
   }
 }
 ```
-
 
 
