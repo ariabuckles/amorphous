@@ -20,7 +20,11 @@ const stubMethods = {
     return true;
   },
   render() {
-    throw new Error('render should be replaced with a wrapped render');
+    // This should never be called
+    /* istanbul ignore next */
+    throw new Error(
+      'Amorphous internal error: render should be replaced with a wrapped render'
+    );
   },
   // componentDidMount requires no proxying
   getSnapshotBeforeUpdate() {
