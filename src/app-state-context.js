@@ -4,11 +4,16 @@ import type { AppStateContext, SetAppState } from './types';
 
 const createAppStateContext = <AppState : Object>(): AppStateContext<AppState> => {
   return React.createContext({
-    appState: ({}: any),
-    setAppState: (...args: any): any => {
+    get appState() {
       throw new Error(
-        'Amorphous: to use appState, You must provide a RootAppComponent at the ' +
-          'root of your app/library component tree'
+        'Amorphous: to use appState, you must provide a RootAppComponent at ' +
+          'the root of your app/library component tree'
+      );
+    },
+    get setAppState() {
+      throw new Error(
+        'Amorphous: to use appState, you must provide a RootAppComponent at ' +
+          'the root of your app/library component tree'
       );
     },
   });

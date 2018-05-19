@@ -1,14 +1,14 @@
 // @flow
-import {describe, it} from 'mocha'
+import { describe, it } from 'mocha'
 import assert from 'assert';
 // TODO: import { strict as assert } from 'assert'; once flow supports strict assert
-import React from 'react';
+import * as React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { RootAppComponent } from '../amorphous';
 
 describe('Single RootAppComponent', () => {
   describe('appState access', () => {
-    class AccessRoot extends RootAppComponent<{}, void, { count?: number}> {
+    class AccessRoot extends RootAppComponent<{}, void, { count?: number }> {
       render() {
         return (
           <button
