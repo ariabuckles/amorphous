@@ -8,9 +8,8 @@
     "type": "git",
     "url": "https://github.com/ariabuckles/amorphous.git"
   },
-  "dependencies": {
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+  "peerDependencies": {
+    "react": ">=16.3.2"
   },
   "devDependencies": {
     "ajv": "^6.5.0",
@@ -29,6 +28,8 @@
     "mocha": "^5.1.1",
     "nyc": "^11.8.0",
     "prettier": "^1.12.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
     "react-scripts": "1.1.4",
     "react-test-renderer": "^16.3.2"
   },
