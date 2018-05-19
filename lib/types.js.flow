@@ -51,24 +51,30 @@ export type SetAppState<AppState: Object> = ((
     cb?: () => void
   ) => void);
 
-export type AppComponentProxyType<Props, State, AppState> = React.ComponentType<{
-    props: Props,
-    state: State,
-    appState: AppState,
-    setAppState: SetAppState<AppState>,
-  }>;
+export type AppComponentProxyType<
+  Props,
+  State,
+  AppState
+> = React.ComponentType<{
+  props: Props,
+  state: State,
+  appState: AppState,
+  setAppState: SetAppState<AppState>,
+}>;
 
 export type AppStateContext<AppState> = {
-  Provider: React.ComponentType<{value: {
-    appState: AppState,
-    setAppState: SetAppState<AppState>,
-  }}>,
+  Provider: React.ComponentType<{
+    value: {
+      appState: AppState,
+      setAppState: SetAppState<AppState>,
+    },
+  }>,
   Consumer: React.ComponentType<{
     children: ({
       appState: AppState,
-      setAppState: SetAppState<AppState>
-    }) => React.Node // TODO: type this more strictly?
-  }>
+      setAppState: SetAppState<AppState>,
+    }) => React.Node, // TODO: type this more strictly?
+  }>,
 };
 
 export interface GenericAppComponent<Props, State, AppState: Object> {
@@ -82,4 +88,3 @@ export interface GenericAppComponent<Props, State, AppState: Object> {
 
   +__AppComponentProxy: AppComponentProxyType<Props, State, AppState>;
 }
-
