@@ -178,7 +178,7 @@ above them, but not necessarily directly above them, in their component tree).
 
 ### Usage
 
-`RootAppComponent` is a base component, so you should `extend` from it just
+`RootAppComponent` is a base component, so you should `extend` from it
 like you would `React.Component`.
 
 ```javascript
@@ -188,7 +188,7 @@ class App extends RootAppComponent {
 ```
 
 To initialize appState, you should set `appState` either as an instance property
-or in the constructor, just as you would with `state`:
+or in the constructor, as you would with `state`:
 
 ```javascript
 class App extends RootAppComponent {
@@ -197,7 +197,6 @@ class App extends RootAppComponent {
   appState = { someProperty: 0 };
 
   // or:
-
   constructor(props) {
     super(props);
     this.state = {};
@@ -232,7 +231,7 @@ above them, but not necessarily directly above them, in their component tree).
 
 ### Usage
 
-`AppComponent` is a base component, so you should `extend` from it just
+`AppComponent` is a base component, so you should `extend` from it
 like you would `React.Component`.
 
 ```javascript
@@ -241,9 +240,9 @@ class SomeComponent extends AppComponent {
 }
 ```
 
-Your component can access `this.appState` in `render()`, just like you would
+Your component can access `this.appState` in `render()`, as you would
 access `this.state`, and can call `this.setAppState` from within any event
-handlers, just like you would for `this.setState`
+handlers, as you would for `this.setState`.
 
 ```javascript
 class SomeComponent extends AppComponent {
@@ -284,20 +283,90 @@ component's constructor (or via `appState =` inside the class body).
 `appState` allows all AppComponents (including the RootAppComponent) to share
 state. It works similarly to `this.state`, but is shared across all AppComponents.
 
-In AppComponents, `this.appState` is accessible in all lifecycle methods, but
-not the constructor.
+### Initializing `appState`
 
-In RootAppComponents, `this.appState` should be initialized in the constructor,
-and is thus available in all methods.
+`appState` is initialized by the RootAppComponent's constructor. By default it
+is initialized to `{}`, but you should initialize it to a more reasonable
+default in your RootAppComponent class:
+
+```javascript
+class App extends RootAppComponent {
+  appState = { myToDos: [] };
+
+  // or:
+  constructor(props) {
+    super(props);
+    this.appState = { myToDos: [] };
+  }
+}
+```
+
+### Using `appState`
+
+Amorphous provides `this.appState` in all AppComponents (including your
+RootAppComponent).
+
+*NOTE: `this.appState` is not accessible in the constructor of
+AppComponents, or in any static methods.*
+
+This means that in `render()` or other methods, you can access `this.appState`
+to read your app's current state, and display something based on that:
+
+```javascript
+class MyToDoList extends AppComponent {
+  render() {
+    return (
+      <div>
+        {this.appState.myToDos.map((todoItem) => (
+          <MyToDo item={todoItem} />
+        ))}
+      </div>
+    );
+  }
+}
+```
+
+### Updating `appState`
 
 AppState can be updated from any AppComponent or RootAppComponent using
 [`this.setAppState()`](this.setappstate.md).
 
+```
+class MyToDoList extends AppComponent {
+  render() {
+    return (
+      <div>
+        {this.appState.myToDos.map((todoItem) => (
+          <MyToDo item={todoItem} />
+        ))}
+        <input
+          type="button"
+          value="Add To-Do"
+          onClick={() => this.setAppState({
+            myToDos: this.appState.myToDos.concat({
+              text: '',
+              completed: false,
+            }),
+          })}
+        />
+      </div>
+    );
+  }
+}
+```
+
+[Read more about setAppState](this.setappstate.md)
+
+### Comparing previous/next `appState` in lifecycle methods
+
+Amorphous provides an additional `appState` parameter to
 [`shouldComponentUpdate`](shouldcomponentupdate.md) and
-[`componentDidUpdate`](componentdidupdate.md) for AppComponents and RootAppComponents
-have an additional parameter so that components can compare `this.appState` to
+[`componentDidUpdate`](componentdidupdate.md) for AppComponents and
+RootAppComponents.  This allows components to compare `this.appState` to
 previous/next versions of `appState`.
 
+See [`shouldComponentUpdate`](shouldcomponentupdate.md) and
+[`componentDidUpdate`](componentdidupdate.md) for more information.
 
 ## this.setAppState
 
@@ -335,7 +404,7 @@ React lifecycle methods:
  * `componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`
 
 You may use either of these methods to monitor changes to `appState`
-and update your `AppComponent` properly, just like you would for `state`.
+and update your `AppComponent` properly, like you would for `this.state`.
 
 Amorphous AppComponents and RootAppComponents provide a third parameter to
 [shouldComponentUpdate][shouldComponentUpdate]: `nextAppState`, which indicates
@@ -358,7 +427,7 @@ React lifecycle methods:
  * `componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`
 
 You may use either of these methods to monitor changes to `appState`
-and update your `AppComponent` properly, just like you would for `state`.
+and update your `AppComponent` properly, like you would for `this.state`.
 
 Amorphous AppComponents and RootAppComponents provide a fourth parameter to
 [componentDidUpdate][componentDidUpdate]: `prevAppState`, which holds

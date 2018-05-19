@@ -10,7 +10,7 @@ React lifecycle methods:
  * `componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`
 
 You may use either of these methods to monitor changes to `appState`
-and update your `AppComponent` properly, just like you would for `state`.
+and update your `AppComponent` properly, like you would for `this.state`.
 
 Amorphous AppComponents and RootAppComponents provide a third parameter to
 [shouldComponentUpdate][shouldComponentUpdate]: `nextAppState`, which indicates

@@ -7,7 +7,7 @@ above them, but not necessarily directly above them, in their component tree).
 
 ### Usage
 
-`AppComponent` is a base component, so you should `extend` from it just
+`AppComponent` is a base component, so you should `extend` from it
 like you would `React.Component`.
 
 ```javascript
@@ -16,9 +16,9 @@ class SomeComponent extends AppComponent {
 }
 ```
 
-Your component can access `this.appState` in `render()`, just like you would
+Your component can access `this.appState` in `render()`, as you would
 access `this.state`, and can call `this.setAppState` from within any event
-handlers, just like you would for `this.setState`
+handlers, as you would for `this.setState`.
 
 ```javascript
 class SomeComponent extends AppComponent {

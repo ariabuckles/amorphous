@@ -14,10 +14,11 @@ Code:
 - [x] fix bug/crash in setAppState path specification when path not present
 - [x] how does a lib really interact? if it renders children from main app?? add lib context
 - [ ] add PureAppComponent to help fix the optimization story
-- [ ] tests for multi-component system
+- [ ] lifecycle tests for multi-component system
 - [ ] tests for library context
 
 Docs:
 
-- [ ] Move appState, setAppState, lifecycle methods, etc to the root docs level to make
+- [x] Move appState, setAppState, lifecycle methods, etc to the root docs level to make
       it more DRY and easier to scan/search
+- [ ] clean up API docs (specifically lifecycle)

@@ -299,16 +299,72 @@
                                 <h2 id="thisappstate">this.appState</h2>
 <p><code>appState</code> allows all AppComponents (including the RootAppComponent) to share
 state. It works similarly to <code>this.state</code>, but is shared across all AppComponents.</p>
-<p>In AppComponents, <code>this.appState</code> is accessible in all lifecycle methods, but
-not the constructor.</p>
-<p>In RootAppComponents, <code>this.appState</code> should be initialized in the constructor,
-and is thus available in all methods.</p>
+<h3 id="initializing-appstate">Initializing <code>appState</code></h3>
+<p><code>appState</code> is initialized by the RootAppComponent&apos;s constructor. By default it
+is initialized to <code>{}</code>, but you should initialize it to a more reasonable
+default in your RootAppComponent class:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RootAppComponent</span> </span>{
+  appState = { myToDos: [] };
+
+  <span class="hljs-comment">// or:</span>
+  <span class="hljs-keyword">constructor</span>(props) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.appState = { myToDos: [] };
+  }
+}
+</code></pre>
+<h3 id="using-appstate">Using <code>appState</code></h3>
+<p>Amorphous provides <code>this.appState</code> in all AppComponents (including your
+RootAppComponent).</p>
+<p><em>NOTE: <code>this.appState</code> is not accessible in the constructor of
+AppComponents, or in any static methods.</em></p>
+<p>This means that in <code>render()</code> or other methods, you can access <code>this.appState</code>
+to read your app&apos;s current state, and display something based on that:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyToDoList</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppComponent</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        {this.appState.myToDos.map((todoItem) =&gt; (
+          <span class="hljs-tag">&lt;<span class="hljs-name">MyToDo</span> <span class="hljs-attr">item</span>=<span class="hljs-string">{todoItem}</span> /&gt;</span>
+        ))}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    );
+  }
+}
+</span></code></pre>
+<h3 id="updating-appstate">Updating <code>appState</code></h3>
 <p>AppState can be updated from any AppComponent or RootAppComponent using
 <a href="this.setappstate.html"><code>this.setAppState()</code></a>.</p>
-<p><a href="shouldcomponentupdate.html"><code>shouldComponentUpdate</code></a> and
-<a href="componentdidupdate.html"><code>componentDidUpdate</code></a> for AppComponents and RootAppComponents
-have an additional parameter so that components can compare <code>this.appState</code> to
+<pre><code>class MyToDoList extends AppComponent {
+  render() {
+    return (
+      &lt;div&gt;
+        {this.appState.myToDos.map((todoItem) =&gt; (
+          &lt;MyToDo item={todoItem} /&gt;
+        ))}
+        &lt;input
+          type=&quot;button&quot;
+          value=&quot;Add To-Do&quot;
+          onClick={() =&gt; this.setAppState({
+            myToDos: this.appState.myToDos.concat({
+              text: &apos;&apos;,
+              completed: false,
+            }),
+          })}
+        /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre><p><a href="this.setappstate.html">Read more about setAppState</a></p>
+<h3 id="comparing-previousnext-appstate-in-lifecycle-methods">Comparing previous/next <code>appState</code> in lifecycle methods</h3>
+<p>Amorphous provides an additional <code>appState</code> parameter to
+<a href="shouldcomponentupdate.html"><code>shouldComponentUpdate</code></a> and
+<a href="componentdidupdate.html"><code>componentDidUpdate</code></a> for AppComponents and
+RootAppComponents.  This allows components to compare <code>this.appState</code> to
 previous/next versions of <code>appState</code>.</p>
+<p>See <a href="shouldcomponentupdate.html"><code>shouldComponentUpdate</code></a> and
+<a href="componentdidupdate.html"><code>componentDidUpdate</code></a> for more information.</p>
 
                                 
                                 </section>
@@ -352,7 +408,7 @@ previous/next versions of <code>appState</code>.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"this.appState","level":"1.3.3","depth":2,"next":{"title":"this.setAppState","level":"1.3.4","depth":2,"path":"this.setappstate.md","ref":"this.setappstate.md","articles":[]},"previous":{"title":"AppComponent","level":"1.3.2","depth":2,"path":"appcomponent.md","ref":"appcomponent.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"about-amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"this.appstate.md","mtime":"2018-05-19T03:16:55.568Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-19T03:17:02.207Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"this.appState","level":"1.3.3","depth":2,"next":{"title":"this.setAppState","level":"1.3.4","depth":2,"path":"this.setappstate.md","ref":"this.setappstate.md","articles":[]},"previous":{"title":"AppComponent","level":"1.3.2","depth":2,"path":"appcomponent.md","ref":"appcomponent.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docsource","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"about-amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"this.appstate.md","mtime":"2018-05-19T04:26:55.461Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-19T04:27:01.674Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

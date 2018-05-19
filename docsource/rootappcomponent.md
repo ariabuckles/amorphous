@@ -7,7 +7,7 @@ above them, but not necessarily directly above them, in their component tree).
 
 ### Usage
 
-`RootAppComponent` is a base component, so you should `extend` from it just
+`RootAppComponent` is a base component, so you should `extend` from it
 like you would `React.Component`.
 
 ```javascript
@@ -17,7 +17,7 @@ class App extends RootAppComponent {
 ```
 
 To initialize appState, you should set `appState` either as an instance property
-or in the constructor, just as you would with `state`:
+or in the constructor, as you would with `state`:
 
 ```javascript
 class App extends RootAppComponent {
@@ -26,7 +26,6 @@ class App extends RootAppComponent {
   appState = { someProperty: 0 };
 
   // or:
-
   constructor(props) {
     super(props);
     this.state = {};
