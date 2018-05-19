@@ -1,13 +1,16 @@
 {
   "name": "amorphous",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "author": "Aria Buckles",
   "license": "MIT",
   "main": "lib/amorphous.js",
+  "homepage": "https://amorphous.js.org",
+  "description": "React state management, without the new concepts",
   "repository": {
     "type": "git",
     "url": "https://github.com/ariabuckles/amorphous.git"
   },
+  "bugs": "https://github.com/ariabuckles/amorphous/issues",
   "peerDependencies": {
     "react": ">=16.3.2"
   },
@@ -45,6 +48,9 @@
     "coveralls": "NODE_ENV=test nyc --reporter=lcovonly mocha src/__tests__/ && cat ./coverage/lcov.info | coveralls",
     "watch-tests": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "directories": {
+    "doc": "./docsource"
   },
   "babel": {
     "presets": [
