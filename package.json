@@ -41,7 +41,7 @@
     "build-demo": "react-scripts build",
     "test": "flow && NODE_ENV=test mocha -r babel-register src/__tests__/",
     "coverage": "NODE_ENV=test nyc --reporter=html --reporter=text mocha src/__tests__/",
-    "coveralls": "NODE_ENV=test nyc --reporter=lcovonly mocha src/__tests__/ &>/dev/null && cat ./coverage/lcov.info | coveralls",
+    "coveralls": "NODE_ENV=test nyc --reporter=lcovonly mocha src/__tests__/ && cat ./coverage/lcov.info | coveralls",
     "watch-tests": "react-scripts test",
     "eject": "react-scripts eject"
   },
