@@ -76,7 +76,23 @@ describe('Single RootAppComponent', () => {
         });
       }
 
+      getSnapshotBeforeUpdate() {
+        return {
+          method: 'getSnapshotBeforeUpdate',
+          props: this.props,
+          state: this.state,
+          appState: this.appState,
+        };
+      }
+
       componentDidUpdate(prevProps, prevState, snapshot, prevAppState) {
+        assert.deepEqual(snapshot, {
+          method: 'getSnapshotBeforeUpdate',
+          props: this.props,
+          state: this.state,
+          appState: this.appState,
+        });
+
         this.logs.push({
           method: 'componentDidUpdate',
           prevProps: prevProps,
