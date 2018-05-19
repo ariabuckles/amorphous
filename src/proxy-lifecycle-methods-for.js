@@ -1,6 +1,10 @@
 // @flow
 import * as React from 'react';
-import type { GenericAppComponent, AppComponentProxyType, SetAppState } from './types';
+import type {
+  GenericAppComponent,
+  AppComponentProxyType,
+  SetAppState,
+} from './types';
 
 // From https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging
 const getDisplayName = (WrappedComponent: Function) => {
@@ -87,7 +91,9 @@ const proxyLifecycleMethodsFor = <Props, State, AppState: Object>(
     setAppState: SetAppState<AppState>,
   };
   */
-  class AppComponentProxy<Props, State, AppState> extends React.Component<ProxyProps> {}
+  class AppComponentProxy<Props, State, AppState> extends React.Component<
+    ProxyProps
+  > {}
   (AppComponentProxy: Object).displayName = `AppComponentProxy(${getDisplayName(
     self.constructor
   )})`;

@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-import { AppComponent, RootAppComponent, createAppStateContext } from './amorphous';
+import {
+  AppComponent,
+  RootAppComponent,
+  createAppStateContext,
+} from './amorphous';
 
 const MyAppStateContext = createAppStateContext();
 class MyAppComponent extends AppComponent {
@@ -11,7 +15,6 @@ class MyRootAppComponent extends RootAppComponent {
 }
 
 class Input extends MyAppComponent {
-
   render() {
     return (
       <input

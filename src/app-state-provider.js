@@ -12,18 +12,14 @@ const getNewAppStateRecursive = (path, i, subState, update) => {
     );
   }
   const subPath = path[i];
-  return Object.assign(
-    {},
-    subState[subPath],
-    {
-      [subPath]: getNewAppStateRecursive(
-        path,
-        i + 1,
-        subState[subPath] || {},
-        update
-      ),
-    }
-  );
+  return Object.assign({}, subState[subPath], {
+    [subPath]: getNewAppStateRecursive(
+      path,
+      i + 1,
+      subState[subPath] || {},
+      update
+    ),
+  });
 };
 
 export default class AppStateProvider<AppState: Object> extends React.Component<
@@ -40,7 +36,7 @@ export default class AppStateProvider<AppState: Object> extends React.Component<
   static defaultProps = {
     context: DefaultAppStateContext,
     getDerivedAppState: null,
-  }
+  };
 
   constructor(props: {
     children: React.Node,

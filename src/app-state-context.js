@@ -2,7 +2,9 @@
 import * as React from 'react';
 import type { AppStateContext, SetAppState } from './types';
 
-const createAppStateContext = <AppState : Object>(): AppStateContext<AppState> => {
+const createAppStateContext = <AppState: Object>(): AppStateContext<
+  AppState
+> => {
   return React.createContext({
     get appState() {
       throw new Error(
@@ -21,7 +23,4 @@ const createAppStateContext = <AppState : Object>(): AppStateContext<AppState> =
 
 const DefaultAppStateContext: AppStateContext<any> = createAppStateContext();
 
-export {
-  DefaultAppStateContext,
-  createAppStateContext,
-};
+export { DefaultAppStateContext, createAppStateContext };
