@@ -6,12 +6,13 @@ mkdir -p docsource/
 
 # gitbook doesn't like numbers in the name, so 'split' uses a-z :/,
 # while csplit uses 0-9
-split -p '^##? ' -a 1 README.md docsource/doc.
-#csplit -k -f docs/doc. -n 1 README.md '/^# /' '{100}'
+cat README.md | sed 's|docs/\([[:alnum:][:punct:]]*\.md\)|\1|g' > temp/README.md
+split -p '^##? ' -a 1 temp/README.md docsource/doc.
+#csplit -k -f docs/doc. -n 1 temp/README.md '/^# /' '{100}'
 ls docsource | xargs -I% mv docsource/% docsource/%.md
 
 ls docsource > temp/docs.txt
-cat README.md | grep '^##\? ' | sed -e 's/`//g' -e 's/^\(##* [a-zA-Z0-9_[.-.]. ]*\).*$/\1/g' > temp/sections.txt
+cat temp/README.md | grep '^##\? ' | sed -e 's/`//g' -e 's/^\(##* [a-zA-Z0-9_[.-.]. ]*\).*$/\1/g' > temp/sections.txt
 cat temp/sections.txt | sed -e 's/^##* //g' -e 's/$/.md/g' | tr ' ' '-' | tr '[:upper:]' '[:lower:]' > temp/files.txt
 cat temp/sections.txt | sed -e 's/^# \(.*\)/ * [\1]/' -e 's/^## \(.*\)/    * [\1]/' > temp/links.txt
 
