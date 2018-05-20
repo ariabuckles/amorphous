@@ -1,25 +1,25 @@
 #!/bin/bash
-rm -rf docsource
+rm -rf docs-md
 rm -rf docs
 mkdir -p temp/
-mkdir -p docsource/
+mkdir -p docs-md/
 
 # gitbook doesn't like numbers in the name, so 'split' uses a-z :/,
 # while csplit uses 0-9
-cat README.md | sed 's|docs/\([[:alnum:][:punct:]]*\.md\)|\1|g' > temp/README.md
-split -p '^##? ' -a 1 temp/README.md docsource/doc.
+cat README.md | sed 's|docs-md/\([[:alnum:][:punct:]]*\.md\)|\1|g' > temp/README.md
+split -p '^##? ' -a 1 temp/README.md docs-md/doc.
 #csplit -k -f docs/doc. -n 1 temp/README.md '/^# /' '{100}'
-ls docsource | xargs -I% mv docsource/% docsource/%.md
+ls docs-md | xargs -I% mv docs-md/% docs-md/%.md
 
-ls docsource > temp/docs.txt
+ls docs-md > temp/docs.txt
 cat temp/README.md | grep '^##\? ' | sed -e 's/`//g' -e 's/^\(##* [a-zA-Z0-9_[.-.]. ]*\).*$/\1/g' > temp/sections.txt
 cat temp/sections.txt | sed -e 's/^##* //g' -e 's/$/.md/g' | tr ' ' '-' | tr '[:upper:]' '[:lower:]' > temp/files.txt
 cat temp/sections.txt | sed -e 's/^# \(.*\)/ * [\1]/' -e 's/^## \(.*\)/    * [\1]/' > temp/links.txt
 
 # hacky way of renaming the files from temp/docs.txt to temp/files.txt
-(cd docsource && paste ../temp/docs.txt ../temp/files.txt | xargs -I% bash -c 'mv %')
+(cd docs-md && paste ../temp/docs.txt ../temp/files.txt | xargs -I% bash -c 'mv %')
 
-paste temp/files.txt temp/links.txt | sed 's|^\([^[:blank:]]*\)[[:blank:]]\(.*\)|\2(\1)|g' > docsource/table-of-contents.md
+paste temp/files.txt temp/links.txt | sed 's|^\([^[:blank:]]*\)[[:blank:]]\(.*\)|\2(\1)|g' > docs-md/table-of-contents.md
 
 rm -rf temp/
 

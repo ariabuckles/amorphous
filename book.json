@@ -1,7 +1,7 @@
 {
     "title": "Amorphous",
     "summary": "React state management, without the new concepts.",
-    "root": "./docsource",
+    "root": "./docs-md",
     "structure": {
         "readme": "about-amorphous.md",
         "summary": "table-of-contents.md"

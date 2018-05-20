@@ -50,7 +50,7 @@
     "eject": "react-scripts eject"
   },
   "directories": {
-    "doc": "./docsource"
+    "doc": "./docs-md"
   },
   "babel": {
     "presets": [
