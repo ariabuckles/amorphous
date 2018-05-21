@@ -297,21 +297,31 @@
                                 <section class="normal markdown-section">
                                 
                                 <h2 id="shouldcomponentupdate">shouldComponentUpdate</h2>
-<p>Amorphous provides this.appState and this.setAppState during and after
-your component&apos;s first render. They are not accessible in the constructor.</p>
-<p>Additionally, Amorphous provides an <code>appState</code> parameter for the following
-React lifecycle methods:</p>
-<ul>
-<li><code>shouldComponentUpdate(nextProps, nextState, nextAppState)</code></li>
-<li><code>componentDidUpdate(prevProps, prevState, snapshot, prevAppState)</code></li>
-</ul>
-<p>You may use either of these methods to monitor changes to <code>appState</code>
-and update your <code>AppComponent</code> properly, like you would for <code>this.state</code>.</p>
-<p>Amorphous AppComponents and RootAppComponents provide a third parameter to
-<a href="https://reactjs.org/docs/react-component.html#shouldcomponentupdate" target="_blank">shouldComponentUpdate</a>: <code>nextAppState</code>, which indicates
-the next value of <code>appState</code>, so that components may avoid rendering if none
-of their dependent props/state/appState have changed. See
-<a href="lifecycle-methods.md">lifecycle methods</a> for more details and examples.</p>
+<p>React provides a <a href="https://reactjs.org/docs/react-component.html#shouldcomponentupdate" target="_blank">shouldComponentUpdate</a> method
+for optimizing components by preventing unnecessary renders.</p>
+<p>In Amorphous, this method continues to do the same thing, but is given
+an extra parameter, <code>prevAppState</code>, so that <code>shouldComponentUpdate</code> can
+compare differences in <code>appState</code> as well as differences in <code>props</code> or
+<code>state</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LengthOutput</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">MyAppComponent</span> </span>{
+
+  shouldComponentUpdate(prevProps, prevState, prevAppState) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.appState.text.length !== prevAppState.text.length;
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>
+        You have typed {this.appState.text.length} characters
+      <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+    );
+  }
+}
+</code></pre>
+<p><em>NOTE: both <code>this.appState</code> and <code>prevAppState</code> are accessible in
+<code>shouldComponentUpdate</code>.</em></p>
+<p>See <a href="https://reactjs.org/docs/react-component.html#shouldcomponentupdate" target="_blank">React&apos;s docs</a> for more information about
+the <code>shouldComponentUpdate</code> and how to best use it.</p>
 
                                 
                                 </section>
@@ -355,7 +365,7 @@ of their dependent props/state/appState have changed. See
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"shouldComponentUpdate","level":"1.3.5","depth":2,"next":{"title":"componentDidUpdate","level":"1.3.6","depth":2,"path":"componentdidupdate.md","ref":"componentdidupdate.md","articles":[]},"previous":{"title":"this.setAppState","level":"1.3.4","depth":2,"path":"this.setappstate.md","ref":"this.setappstate.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docs-md","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"about-amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"shouldcomponentupdate.md","mtime":"2018-05-20T22:34:13.940Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-20T22:34:19.226Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"shouldComponentUpdate","level":"1.3.5","depth":2,"next":{"title":"componentDidUpdate","level":"1.3.6","depth":2,"path":"componentdidupdate.md","ref":"componentdidupdate.md","articles":[]},"previous":{"title":"this.setAppState","level":"1.3.4","depth":2,"path":"this.setappstate.md","ref":"this.setappstate.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-plus"],"root":"./docs-md","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"summary":"React state management, without the new concepts.","theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"about-amorphous.md","glossary":"GLOSSARY.md","summary":"table-of-contents.md"},"variables":{},"title":"Amorphous","gitbook":"*"},"file":{"path":"shouldcomponentupdate.md","mtime":"2018-05-21T00:52:01.888Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-21T00:52:07.317Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -1,22 +1,35 @@
 ## shouldComponentUpdate
 
-Amorphous provides this.appState and this.setAppState during and after
-your component's first render. They are not accessible in the constructor.
+React provides a [shouldComponentUpdate][shouldComponentUpdate] method
+for optimizing components by preventing unnecessary renders.
 
-Additionally, Amorphous provides an `appState` parameter for the following
-React lifecycle methods:
+In Amorphous, this method continues to do the same thing, but is given
+an extra parameter, `prevAppState`, so that `shouldComponentUpdate` can
+compare differences in `appState` as well as differences in `props` or
+`state`:
 
- * `shouldComponentUpdate(nextProps, nextState, nextAppState)`
- * `componentDidUpdate(prevProps, prevState, snapshot, prevAppState)`
+```javascript
+class LengthOutput extends MyAppComponent {
 
-You may use either of these methods to monitor changes to `appState`
-and update your `AppComponent` properly, like you would for `this.state`.
+  shouldComponentUpdate(prevProps, prevState, prevAppState) {
+    return this.appState.text.length !== prevAppState.text.length;
+  }
 
-Amorphous AppComponents and RootAppComponents provide a third parameter to
-[shouldComponentUpdate][shouldComponentUpdate]: `nextAppState`, which indicates
-the next value of `appState`, so that components may avoid rendering if none
-of their dependent props/state/appState have changed. See
-[lifecycle methods](lifecycle-methods.md) for more details and examples.
+  render() {
+    return (
+      <span>
+        You have typed {this.appState.text.length} characters
+      </span>
+    );
+  }
+}
+```
+
+*NOTE: both `this.appState` and `prevAppState` are accessible in
+`shouldComponentUpdate`.*
+
+See [React's docs][shouldComponentUpdate] for more information about
+the `shouldComponentUpdate` and how to best use it.
 
 [shouldComponentUpdate]: https://reactjs.org/docs/react-component.html#shouldcomponentupdate
 
